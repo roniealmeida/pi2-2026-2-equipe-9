@@ -114,7 +114,7 @@
 
 .retorno-conteudo {
     width: 100%;
-    max-width: 850px;
+    max-width: 1150px;
 
     margin: 0 auto;
     padding: 72px 30px 60px;
@@ -130,7 +130,7 @@
     text-align: center;
 
     font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
 
     color: #273b34;
@@ -142,11 +142,11 @@
     width: 100%;
 
     display: grid;
-    grid-template-columns: 150px 1fr 1fr;
+    grid-template-columns: 280px 1fr 1fr;
 
     align-items: start;
 
-    column-gap: 82px;
+    column-gap: 55px;
 }
 
 /* FOTO */
@@ -158,8 +158,8 @@
 }
 
 .retorno-imagem {
-    width: 105px;
-    height: 90px;
+    width: 250px;
+    height: 205px;
 
     display: flex;
     align-items: center;
@@ -168,7 +168,7 @@
     overflow: hidden;
 
     border: 1px solid #16855e;
-    border-radius: 8px;
+    border-radius: 10px;
 
     background: rgba(255, 255, 255, 0.25);
 }
@@ -185,9 +185,9 @@
 /* NOME CIENTÍFICO */
 
 .retorno-nome-cientifico {
-    width: 125px;
+    width: 250px;
 
-    margin-top: 6px;
+    margin-top: 9px;
 
     display: flex;
     flex-direction: column;
@@ -198,17 +198,17 @@
 }
 
 .retorno-nome-cientifico span {
-    font-size: 7px;
+    font-size: 11px;
     font-weight: 400;
 }
 
 .retorno-nome-cientifico strong {
-    margin-top: 1px;
+    margin-top: 2px;
 
-    font-size: 7px;
+    font-size: 11px;
     font-weight: 600;
 
-    line-height: 1.2;
+    line-height: 1.25;
 }
 
 /* COLUNAS */
@@ -217,11 +217,11 @@
     display: flex;
     flex-direction: column;
 
-    gap: 22px;
+    gap: 28px;
 }
 
 .retorno-coluna-direita {
-    gap: 30px;
+    gap: 38px;
 }
 
 /* CADA INFORMAÇÃO */
@@ -234,19 +234,19 @@
 }
 
 .retorno-grupo span {
-    margin-bottom: 2px;
+    margin-bottom: 4px;
 
-    font-size: 10px;
+    font-size: 13px;
     font-weight: 400;
 
-    line-height: 1.15;
+    line-height: 1.2;
 }
 
 .retorno-grupo strong {
-    font-size: 10px;
+    font-size: 13px;
     font-weight: 600;
 
-    line-height: 1.25;
+    line-height: 1.35;
 
     color: #273b34;
 }
@@ -271,12 +271,12 @@
 .retorno-erro h2 {
     margin: 0;
 
-    font-size: 20px;
+    font-size: 22px;
     color: #273b34;
 }
 
 .retorno-erro button {
-    padding: 8px 20px;
+    padding: 9px 22px;
 
     border: 1px solid #16855e;
     border-radius: 20px;
@@ -286,7 +286,7 @@
     color: #147a58;
 
     font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
+    font-size: 13px;
 
     cursor: pointer;
 }
@@ -299,16 +299,32 @@
     }
 
     .retorno-conteudo {
+        max-width: 720px;
         padding: 55px 25px 50px;
     }
 
     .retorno-conteudo h1 {
         margin-bottom: 42px;
+        font-size: 22px;
     }
 
     .retorno-informacoes {
-        grid-template-columns: 120px 1fr 1fr;
-        column-gap: 30px;
+        grid-template-columns: 190px 1fr 1fr;
+        column-gap: 25px;
+    }
+
+    .retorno-imagem {
+        width: 175px;
+        height: 150px;
+    }
+
+    .retorno-nome-cientifico {
+        width: 175px;
+    }
+
+    .retorno-grupo span,
+    .retorno-grupo strong {
+        font-size: 11px;
     }
 }
 
@@ -321,6 +337,7 @@
 
     .retorno-conteudo h1 {
         margin-bottom: 35px;
+        font-size: 21px;
     }
 
     .retorno-informacoes {
@@ -329,6 +346,15 @@
         align-items: center;
 
         gap: 30px;
+    }
+
+    .retorno-imagem {
+        width: 210px;
+        height: 175px;
+    }
+
+    .retorno-nome-cientifico {
+        width: 210px;
     }
 
     .retorno-coluna,
@@ -341,11 +367,13 @@
         text-align: center;
     }
 
-    .retorno-grupo span {
-        font-size: 11px;
+    .retorno-grupo span,
+    .retorno-grupo strong {
+        font-size: 12px;
     }
 
-    .retorno-grupo strong {
-        font-size: 11px;
+    .retorno-nome-cientifico span,
+    .retorno-nome-cientifico strong {
+        font-size: 10px;
     }
 }
