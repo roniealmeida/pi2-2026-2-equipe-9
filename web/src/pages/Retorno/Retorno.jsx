@@ -2,134 +2,177 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import MenuLateral from "../MenuLateral/MenuLateral";
 
-import logo from "../../assets/images/Logo-AnalisaAI.png";
-import iconMenu from "../../assets/images/icon-menu.png";
-import iconPerson from "../../assets/images/icon-person.png";
+import logoEscura from "../../assets/images/Logo-AnalisaAI-Escura.png";
+import logoSimbolo from "../../assets/images/Logo-AnalisaAI-Simbolo.png";
 import fotoTeste from "../../assets/images/fototeste.jpeg";
 
-import "../Home/Home.css";
-import "./Retorno.css"; 
-import "../Resultado/Resultado.css";
+import "./Retorno.css";
 import useAnalysisStore from "../../stores/analysisStore";
 
 export default function Retorno() {
   const [menuAberto, setMenuAberto] = useState(false);
+
   const navigate = useNavigate();
-  const location = useLocation(); 
-  const { searchRequestId, analysis } = useAnalysisStore();
+  const location = useLocation();
+
+  const { analysis } = useAnalysisStore();
+
   const imagemEnviada = location.state?.imagemUrl || fotoTeste;
 
   if (!analysis || analysis.length === 0) {
     return (
-      <div id="resultado-container">
-        <header>
-          <div id="cabecalho">
-            <img
-              id="icon-menu"
-              src={iconMenu}
-              alt="Menu"
+      <div className="retorno-page">
+        <header className="retorno-header">
+          <div className="retorno-cabecalho">
+            <button
+              type="button"
+              className="retorno-menu"
               onClick={() => setMenuAberto(true)}
-            />
-            <img
-              id="logo"
-              src={logo}
-              alt="Logo"
+              aria-label="Abrir menu"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+
+            <div
+              className="retorno-logo"
               onClick={() => navigate("/home")}
-              style={{ cursor: "pointer" }}
-            />
-            <img id="icon-person" src={iconPerson} alt="Perfil" />
+            >
+              <img
+                className="retorno-logo-simbolo"
+                src={logoSimbolo}
+                alt=""
+              />
+
+              <img
+                className="retorno-logo-texto"
+                src={logoEscura}
+                alt="AnalisaAI"
+              />
+            </div>
           </div>
         </header>
 
-        <main id="detalhes-planta" className="erro-analise">
+        <main className="retorno-erro">
           <h2>Erro ao analisar a sua foto</h2>
-          <button className="voltar" onClick={() => navigate("/home")}>
+
+          <button
+            type="button"
+            onClick={() => navigate("/home")}
+          >
             Voltar para o início
           </button>
         </main>
 
-        <MenuLateral menuAberto={menuAberto} setMenuAberto={setMenuAberto} />
+        <MenuLateral
+          menuAberto={menuAberto}
+          setMenuAberto={setMenuAberto}
+        />
       </div>
     );
   }
 
+  const planta = analysis[0];
+
   return (
-    <div id="resultado-container">
-      <header>
-        <div id="cabecalho">
-          <img
-            id="icon-menu"
-            src={iconMenu}
-            alt="Menu"
+    <div className="retorno-page">
+      <header className="retorno-header">
+        <div className="retorno-cabecalho">
+          <button
+            type="button"
+            className="retorno-menu"
             onClick={() => setMenuAberto(true)}
-          />
-          <img
-            id="logo"
-            src={logo}
-            alt="Logo"
+            aria-label="Abrir menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <div
+            className="retorno-logo"
             onClick={() => navigate("/home")}
-            style={{ cursor: "pointer" }}
-          />
-          <img id="icon-person" src={iconPerson} alt="Perfil" />
+          >
+            <img
+              className="retorno-logo-simbolo"
+              src={logoSimbolo}
+              alt=""
+            />
+
+            <img
+              className="retorno-logo-texto"
+              src={logoEscura}
+              alt="AnalisaAI"
+            />
+          </div>
         </div>
       </header>
 
-      <main id="detalhes-planta">
-        <div className="top-navigation">
-          <button className="voltar" onClick={() => navigate("/home")}>
-            ⬅ Analisar outra planta
-          </button>
-          <h2>Resultado da Análise</h2>
-        </div>
+      <main className="retorno-conteudo">
+        <h1>Planta detectada</h1>
 
-        <div className="container-description">
-          <div className="resultado-imagem">
-            <img src={imagemEnviada} alt="Foto da planta analisada" />
-          </div>
-
-          <div className="info-box box1">
-            <div className="info-group">
-              <h3>Nome popular</h3>
-              <p>{analysis[0].CommonName}</p> 
+        <div className="retorno-informacoes">
+          <div className="retorno-planta">
+            <div className="retorno-imagem">
+              <img
+                src={imagemEnviada}
+                alt={`Foto de ${planta.CommonName}`}
+              />
             </div>
 
-            <div className="info-group">
-              <h3>Descrição</h3>
-              <p>{analysis[0].Description}</p> {/* Aguardando Backend */}
-            </div>
-
-            <div className="info-group">
-              <h3>Espécies suscetíveis à intoxicação</h3>
-              {analysis[0]?.SusceptibleAnimalSpecies?.map((especie, index) => (
-                <p key={index}>{especie}</p>
-              ))} 
+            <div className="retorno-nome-cientifico">
+              <span>Nome científico</span>
+              <strong>{planta.ScientificName}</strong>
             </div>
           </div>
 
-          <div className="info-box box2">
-            <div className="info-group">
-              <h3>Riscos</h3>
-              <p>{analysis[0].HumanRisks}</p> 
+          <div className="retorno-coluna">
+            <div className="retorno-grupo">
+              <span>Nome Popular</span>
+              <strong>{planta.CommonName}</strong>
             </div>
 
-            <div className="info-group">
-              <h3>Sintomas</h3>
-              {analysis[0]?.CommonSymptoms?.map((especie, index) => (
-                <p key={index}>{especie}</p>
-              ))}
+            <div className="retorno-grupo">
+              <span>
+                Espécie animal suscetível
+                <br />
+                a intoxicação
+              </span>
+
+              <strong>
+                {planta.SusceptibleAnimalSpecies?.join(", ")}
+              </strong>
             </div>
 
-            <div className="info-group">
-              <h3>Ações recomendadas</h3>
-              {analysis[0]?.RecommendedActions?.map((especie, index) => (
-                <p key={index}>{especie}</p>
-              ))}
+            <div className="retorno-grupo">
+              <span>Riscos para os seres humanos</span>
+              <strong>{planta.HumanRisks}</strong>
+            </div>
+          </div>
+
+          <div className="retorno-coluna retorno-coluna-direita">
+            <div className="retorno-grupo">
+              <span>Sintomas comuns</span>
+              <strong>
+                {planta.CommonSymptoms?.join(", ")}
+              </strong>
+            </div>
+
+            <div className="retorno-grupo">
+              <span>Ações recomendadas</span>
+              <strong>
+                {planta.RecommendedActions?.join(", ")}
+              </strong>
             </div>
           </div>
         </div>
       </main>
 
-      <MenuLateral menuAberto={menuAberto} setMenuAberto={setMenuAberto} />
+      <MenuLateral
+        menuAberto={menuAberto}
+        setMenuAberto={setMenuAberto}
+      />
     </div>
   );
 }

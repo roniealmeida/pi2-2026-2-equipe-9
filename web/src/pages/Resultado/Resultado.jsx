@@ -1,24 +1,29 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+
 import "./Resultado.css";
+
 import MenuLateral from "../MenuLateral/MenuLateral";
 import useAnalysisStore from "../../stores/analysisStore";
 import useAuthStore from "../../stores/authStore";
 import Loading from "../../components/Loading";
 
-import iconMenu from "../../assets/images/icon-menu.png";
-import logo from "../../assets/images/Logo-AnalisaAI.png";
-import iconPerson from "../../assets/images/icon-person.png";
-
-import "../Home/Home.css";
+import logoEscura from "../../assets/images/Logo-AnalisaAI-Escura.png";
+import logoSimbolo from "../../assets/images/Logo-AnalisaAI-Simbolo.png";
 
 export default function Resultado() {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [menuAberto, setMenuAberto] = useState(false);
-  
-  const { analysis, loading, error, fetchAnalysisById } = useAnalysisStore();
+
+  const {
+    analysis,
+    loading,
+    error,
+    fetchAnalysisById,
+  } = useAnalysisStore();
+
   const { user } = useAuthStore();
 
   useEffect(() => {
@@ -27,107 +32,191 @@ export default function Resultado() {
     }
   }, [id, user?.id, fetchAnalysisById]);
 
+  /* ==================== CARREGAMENTO ==================== */
+
   if (loading) {
     return (
-      <div style={{ backgroundColor: "#222", color: "#fff", padding: "50px", textAlign: "center", height: "100vh" }}>
+      <div className="resultado-page resultado-status">
         <Loading />
       </div>
     );
   }
 
+  /* ==================== ERRO ==================== */
+
   if (error) {
     return (
-      <div style={{ backgroundColor: "#222", color: "#fff", padding: "50px", textAlign: "center", height: "100vh" }}>
+      <div className="resultado-page resultado-status">
         <p>Erro ao carregar análise: {error}</p>
-        <button onClick={() => navigate(-1)}>Voltar</button>
+
+        <button
+          type="button"
+          onClick={() => navigate("/historico")}
+        >
+          Voltar ao Histórico
+        </button>
       </div>
     );
   }
 
-  // Sem dados
-  if (!analysis) {
+  /* ==================== SEM DADOS ==================== */
+
+  if (!analysis || analysis.length === 0) {
     return (
-      <div style={{ backgroundColor: "#222", color: "#fff", padding: "50px", textAlign: "center", height: "100vh" }}>
+      <div className="resultado-page resultado-status">
         <p>Carregando as informações da sua planta...</p>
-        <button onClick={() => navigate(-1)}>Voltar</button>
+
+        <button
+          type="button"
+          onClick={() => navigate("/historico")}
+        >
+          Voltar ao Histórico
+        </button>
       </div>
     );
   }
-console.log("Dados da análise:", analysis);
+
+  const planta = analysis[0];
+
   return (
-    <div id="resultado-container">
-      <header>
-        <div id="cabecalho">
-          <img
-            id="icon-menu"
-            src={iconMenu}
-            alt="Menu"
+    <div className="resultado-page">
+
+      {/* ==================== CABEÇALHO ==================== */}
+
+      <header className="resultado-header">
+        <div className="resultado-cabecalho">
+
+          <button
+            type="button"
+            className="resultado-menu"
             onClick={() => setMenuAberto(true)}
-          />
-          <img
-            id="logo"
-            src={logo}
-            alt="Logo"
-            onClick={() => navigate("/historico")}
-            style={{ cursor: "pointer" }}
-          />
-          <img id="icon-person" src={iconPerson} alt="Perfil" />
+            aria-label="Abrir menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <div
+            className="resultado-logo"
+            onClick={() => navigate("/home")}
+          >
+            <img
+              className="resultado-logo-simbolo"
+              src={logoSimbolo}
+              alt=""
+            />
+
+            <img
+              className="resultado-logo-texto"
+              src={logoEscura}
+              alt="AnalisaAI"
+            />
+          </div>
+
         </div>
       </header>
 
-      <main id="detalhes-planta">
-        <div className="top-navigation">
-          <button className="voltar" onClick={() => navigate(-1)}>⬅ Voltar ao Histórico</button>
-          <h2>Detalhes da Planta</h2>
+      {/* ==================== CONTEÚDO ==================== */}
+
+      <main className="resultado-conteudo">
+
+        <button
+          type="button"
+          className="resultado-voltar"
+          onClick={() => navigate("/historico")}
+        >
+          ← Voltar ao Histórico
+        </button>
+
+        <h1>Detalhes da Planta</h1>
+
+        <div className="resultado-informacoes">
+
+          {/* FOTO + NOME CIENTÍFICO */}
+
+          <div className="resultado-planta">
+
+            <div className="resultado-foto">
+              <img
+                src={planta.image}
+                alt={planta.common_name || "Planta analisada"}
+              />
+            </div>
+
+            {planta.scientific_name && (
+              <div className="resultado-cientifico">
+                <span>Nome científico</span>
+                <strong>{planta.scientific_name}</strong>
+              </div>
+            )}
+
+          </div>
+
+          {/* COLUNA 1 */}
+
+          <div className="resultado-coluna">
+
+            <div className="resultado-grupo">
+              <span>Nome Popular</span>
+              <strong>{planta.common_name}</strong>
+            </div>
+
+            <div className="resultado-grupo">
+              <span>Descrição</span>
+              <strong>{planta.description}</strong>
+            </div>
+
+            <div className="resultado-grupo">
+              <span>
+                Espécies suscetíveis à intoxicação
+              </span>
+
+              <strong>
+                {planta.susceptible_animal_species?.join(", ")}
+              </strong>
+            </div>
+
+          </div>
+
+          {/* COLUNA 2 */}
+
+          <div className="resultado-coluna">
+
+            <div className="resultado-grupo">
+              <span>Riscos para os seres humanos</span>
+              <strong>{planta.human_risks}</strong>
+            </div>
+
+            <div className="resultado-grupo">
+              <span>Sintomas comuns</span>
+
+              <strong>
+                {planta.common_symptoms?.join(", ")}
+              </strong>
+            </div>
+
+            <div className="resultado-grupo">
+              <span>Ações recomendadas</span>
+
+              <strong>
+                {planta.recommended_actions?.join(", ")}
+              </strong>
+            </div>
+
+          </div>
+
         </div>
 
-        <div className="container-description">
-          <div className="resultado-imagem">
-            <img src={analysis[0].image} alt={analysis[0].common_name} />
-          </div>
-          <div className="info-box box1">
-            <div className="info-group">
-              <h3>Nome popular</h3>
-              <p>{analysis[0].common_name}</p> 
-            </div>
-
-            <div className="info-group">
-              <h3>Descrição</h3>
-              <p>{analysis[0].description}</p> {/* Aguardando Backend */}
-            </div>
-
-            <div className="info-group">
-              <h3>Espécies suscetíveis à intoxicação</h3>
-              {analysis[0]?.susceptible_animal_species?.map((especie, index) => (
-                <p key={index}>{especie}</p>
-              ))} 
-            </div>
-          </div>
-
-          <div className="info-box box2">
-            <div className="info-group">
-              <h3>Riscos</h3>
-              <p>{analysis[0].human_risks}</p> 
-            </div>
-
-            <div className="info-group">
-              <h3>Sintomas</h3>
-              {analysis[0]?.common_symptoms?.map((especie, index) => (
-                <p key={index}>{especie}</p>
-              ))}
-            </div>
-
-            <div className="info-group">
-              <h3>Ações recomendadas</h3>
-              {analysis[0]?.recommended_actions?.map((especie, index) => (
-                <p key={index}>{especie}</p>
-              ))}
-            </div>
-          </div>
-        </div>
       </main>
 
-      <MenuLateral menuAberto={menuAberto} setMenuAberto={setMenuAberto} />
+      {/* ==================== MENU LATERAL ==================== */}
+
+      <MenuLateral
+        menuAberto={menuAberto}
+        setMenuAberto={setMenuAberto}
+      />
+
     </div>
   );
 }

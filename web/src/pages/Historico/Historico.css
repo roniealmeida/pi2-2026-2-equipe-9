@@ -1,177 +1,514 @@
-body {
-    margin-bottom: 50px;
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../../assets/fonts/Montserrat/static/Montserrat-Light.ttf') format('truetype');
+    font-weight: 300;
 }
 
-#title-historic {
-    color: #fff;
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../../assets/fonts/Montserrat/static/Montserrat-Regular.ttf') format('truetype');
+    font-weight: 400;
 }
 
-#title-historic h2 {
-    font-size: clamp(22px, 5vw, 32px);
-    padding-top: 50px;
-    color: #ffffff;
-    font-weight: 600;
-
-    width: 90%;
-    max-width: 700px;
-    margin-left: 100px;
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../../assets/fonts/Montserrat/static/Montserrat-Medium.ttf') format('truetype');
+    font-weight: 500;
 }
 
-#title-historic p {
-    font-size: clamp(12px, 2vw, 15px);
-
-    color: #ffffff;
-    font-weight: 200;
-
-    width: 90%;
-    max-width: 700px;
-    margin-left: 100px;
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../../assets/fonts/Montserrat/static/Montserrat-Bold.ttf') format('truetype');
+    font-weight: 700;
 }
 
-.listagem-container {
-    margin-right: 100px;
-    margin-left: 100px;
-    margin-top: 30px;
-    padding: 30px;
-    border-radius: 25px;
-    color: #fff;
-    background-color: #00ff7310;
-    border: 2px solid #00361862;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.15);
+/* ==================== PÁGINA ==================== */
+
+.historico-page {
+    width: 100%;
+    min-height: 100vh;
+
+    box-sizing: border-box;
+
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #f8fffc 25%,
+        #e8f8f1 50%,
+        #ccebdc 75%,
+        #a9d9c3 100%
+    );
+
+    color: #273b34;
+
+    font-family: 'Montserrat', sans-serif;
+
+    position: relative;
+    isolation: isolate;
 }
 
-.box-plant {
+/* Impede o fundo antigo do body de aparecer */
+
+.historico-page::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #f8fffc 25%,
+        #e8f8f1 50%,
+        #ccebdc 75%,
+        #a9d9c3 100%
+    );
+
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ==================== CABEÇALHO ==================== */
+
+.historico-header {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 20px 28px 0;
+}
+
+.historico-cabecalho {
+    width: 100%;
+    min-height: 52px;
+
     display: flex;
     align-items: center;
-    gap: 20px;
-    max-width: 100%;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    justify-content: flex-start;
+
+    padding: 0 14px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #8c9994;
+    border-radius: 28px;
+
+    background: rgba(255, 255, 255, 0.12);
 }
 
-.image-plant img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 20px;
-    border: 2px solid #009141;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.15);
-    flex-shrink: 0;
-}
+/* ==================== HAMBÚRGUER ==================== */
 
-.info-plant {
+.historico-menu {
+    width: 26px;
+    height: 26px;
+
     display: flex;
     flex-direction: column;
 
-    min-width: 0;
-    flex: 1;
+    align-items: center;
+    justify-content: center;
+
+    gap: 4px;
+
+    padding: 0;
+    margin: 0 12px 0 0;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
 }
 
-.title-plant h3 {
-    margin: 0;
-    margin-bottom: 10px;
+.historico-menu span {
+    display: block;
+
+    width: 18px;
+    height: 2px;
+
+    background: #26332e;
+
+    border-radius: 5px;
 }
 
-.description-plant p {
-    margin: 0;
-    max-width: 100%;
-    word-break: break-word;
-}
+/* ==================== LOGO ==================== */
 
-.button-seta img {
-    width: 20px;
-    height: auto;
-}
+.historico-logo {
+    height: 32px;
 
-.button-seta {
-    margin-top: 20px;
     display: flex;
     align-items: center;
-    gap: 6px;
+
+    gap: 5px;
+
+    cursor: pointer;
 }
 
-.button-seta p {
-    font-size: clamp(11px, 2vw, 13px);
-    text-decoration: underline;
+.historico-logo-simbolo {
+    width: 25px;
+    height: 25px;
+
+    display: block;
+
+    object-fit: contain;
+}
+
+.historico-logo-texto {
+    width: 76px;
+    height: auto;
+
+    display: block;
+
+    object-fit: contain;
+}
+
+/* ==================== CONTEÚDO ==================== */
+
+.historico-conteudo {
+    width: 100%;
+    max-width: 850px;
+
+    margin: 0 auto;
+
+    padding: 70px 30px 70px;
+
+    box-sizing: border-box;
+}
+
+/* ==================== TÍTULO ==================== */
+
+.historico-conteudo > h1 {
+    margin: 0 0 32px;
+
+    font-family: 'Montserrat', sans-serif;
+
+    font-size: 24px;
+    font-weight: 700;
+
+    color: #273b34;
+}
+
+/* ==================== LISTAGEM ==================== */
+
+.historico-listagem {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* Link que envolve cada análise */
+
+.historico-card-link {
+    display: block;
+
+    width: 100%;
+
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ==================== ITEM DO HISTÓRICO ==================== */
+
+.historico-card {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 100px 1fr 42px;
+
+    align-items: center;
+
+    column-gap: 18px;
+
+    min-height: 115px;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid rgba(39, 59, 52, 0.35);
+
+    box-sizing: border-box;
+
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.historico-card:hover {
+    background: rgba(255, 255, 255, 0.18);
+
+    transform: translateX(3px);
+}
+
+/* ==================== FOTO ==================== */
+
+.historico-card-imagem {
+    width: 100px;
+    height: 90px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border-radius: 9px;
+
+    background: #29443b;
+}
+
+.historico-card-imagem img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+/* ==================== INFORMAÇÕES ==================== */
+
+.historico-card-info {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 5px;
+}
+
+.historico-card-info h3 {
     margin: 0;
+
+    font-family: 'Montserrat', sans-serif;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #273b34;
 }
 
-/* ==================== TABLET (até 768px) ==================== */
+.historico-card-info p {
+    margin: 0;
+
+    font-family: 'Montserrat', sans-serif;
+
+    font-size: 12px;
+    font-weight: 400;
+
+    line-height: 1.35;
+
+    color: #40544d;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+}
+
+/* ==================== SETA ==================== */
+
+.historico-card-seta {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 30px;
+    font-weight: 300;
+
+    color: #273b34;
+
+    transition: transform 0.2s ease;
+}
+
+.historico-card:hover .historico-card-seta {
+    transform: translateX(4px);
+}
+
+/* ==================== STATUS ==================== */
+
+.historico-status {
+    width: 100%;
+
+    padding: 40px 20px;
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+    font-family: 'Montserrat', sans-serif;
+
+    font-size: 14px;
+
+    color: #40544d;
+}
+
+.historico-erro {
+    color: #9c3535;
+}
+
+/* ==================== TABLET ==================== */
 
 @media (max-width: 768px) {
 
-    #title-historic h2 {
-        margin-left: 40px;
-        padding-top: 40px;
+    .historico-header {
+        padding: 14px 16px 0;
     }
 
-    #title-historic p {
-        margin-left: 40px;
+    .historico-conteudo {
+        max-width: 700px;
+
+        padding: 55px 30px 60px;
     }
 
-    .listagem-container {
-        margin-right: 40px;
-        margin-left: 40px;
-        padding: 20px;
+    .historico-conteudo > h1 {
+        margin-bottom: 28px;
+
+        font-size: 22px;
     }
 
-    .image-plant img {
-        width: 120px;
-        height: 120px;
-    }
-}
+    .historico-card {
+        grid-template-columns: 90px 1fr 36px;
 
-/* ==================== CELULAR (até 480px) ==================== */
+        column-gap: 15px;
 
-@media (max-width: 480px) {
-
-    #title-historic h2 {
-        margin-left: 16px;
-        padding-top: 30px;
-        width: 95%;
+        min-height: 105px;
     }
 
-    #title-historic p {
-        margin-left: 16px;
-        width: 95%;
+    .historico-card-imagem {
+        width: 90px;
+        height: 80px;
     }
 
-    .listagem-container {
-        margin-right: 12px;
-        margin-left: 12px;
-        margin-top: 20px;
-        padding: 16px;
-        border-radius: 16px;
+    .historico-card-info h3 {
+        font-size: 13px;
     }
 
-    .box-plant {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
+    .historico-card-info p {
+        font-size: 11px;
     }
 
-    .image-plant img {
-        width: 100%;
-        height: 180px;
-        border-radius: 14px;
-    }
+    .historico-card-seta {
+        width: 36px;
 
-    .button-seta {
-        margin-top: 14px;
+        font-size: 27px;
     }
 }
 
-/* ==================== TELAS MUITO PEQUENAS (até 360px) ==================== */
+/* ==================== CELULAR ==================== */
 
-@media (max-width: 360px) {
+@media (max-width: 600px) {
 
-    .listagem-container {
-        margin-right: 8px;
-        margin-left: 8px;
-        padding: 12px;
+    .historico-header {
+        padding: 12px 14px 0;
     }
 
-    .image-plant img {
-        height: 150px;
+    .historico-cabecalho {
+        min-height: 46px;
+
+        padding: 0 12px;
+    }
+
+    .historico-logo-simbolo {
+        width: 22px;
+        height: 22px;
+    }
+
+    .historico-logo-texto {
+        width: 68px;
+    }
+
+    .historico-conteudo {
+        padding: 45px 22px 50px;
+    }
+
+    .historico-conteudo > h1 {
+        margin-bottom: 25px;
+
+        font-size: 21px;
+    }
+
+    .historico-card {
+        grid-template-columns: 80px 1fr 30px;
+
+        column-gap: 12px;
+
+        min-height: 95px;
+
+        padding: 10px 0;
+    }
+
+    .historico-card-imagem {
+        width: 80px;
+        height: 72px;
+
+        border-radius: 8px;
+    }
+
+    .historico-card-info {
+        gap: 3px;
+    }
+
+    .historico-card-info h3 {
+        font-size: 12px;
+    }
+
+    .historico-card-info p {
+        font-size: 10px;
+
+        line-height: 1.3;
+    }
+
+    .historico-card-seta {
+        width: 30px;
+
+        font-size: 24px;
+    }
+}
+
+/* ==================== TELAS MUITO PEQUENAS ==================== */
+
+@media (max-width: 400px) {
+
+    .historico-conteudo {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .historico-card {
+        grid-template-columns: 70px 1fr 26px;
+
+        column-gap: 10px;
+    }
+
+    .historico-card-imagem {
+        width: 70px;
+        height: 65px;
+    }
+
+    .historico-card-info h3 {
+        font-size: 11px;
+    }
+
+    .historico-card-info p {
+        font-size: 9px;
+    }
+
+    .historico-card-seta {
+        width: 26px;
+
+        font-size: 22px;
     }
 }

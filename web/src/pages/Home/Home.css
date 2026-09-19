@@ -1,24 +1,24 @@
 @font-face {
     font-family: 'Montserrat';
-    src: url('../src/assets/fonts/Montserrat/static/Montserrat-Light.ttf') format('truetype');
+    src: url('../../assets/fonts/Montserrat/static/Montserrat-Light.ttf') format('truetype');
     font-weight: 300;
 }
 
 @font-face {
     font-family: 'Montserrat';
-    src: url('../src/assets/fonts/Montserrat/static/Montserrat-Regular.ttf') format('truetype');
+    src: url('../../assets/fonts/Montserrat/static/Montserrat-Regular.ttf') format('truetype');
     font-weight: 400;
 }
 
 @font-face {
     font-family: 'Montserrat';
-    src: url('../src/assets/fonts/Montserrat/static/Montserrat-Medium.ttf') format('truetype');
+    src: url('../../assets/fonts/Montserrat/static/Montserrat-Medium.ttf') format('truetype');
     font-weight: 500;
 }
 
 @font-face {
     font-family: 'Montserrat';
-    src: url('../src/assets/fonts/Montserrat/static/Montserrat-Bold.ttf') format('truetype');
+    src: url('../../assets/fonts/Montserrat/static/Montserrat-Bold.ttf') format('truetype');
     font-weight: 700;
 }
 
@@ -28,10 +28,62 @@
     box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+    min-height: 100%;
+}
+
 body {
     background: linear-gradient(90deg, #000000, #00724a);
     min-height: 100vh;
     overflow-x: hidden;
+}
+
+/* ==================== PÁGINA ==================== */
+
+.home-page {
+    min-height: 100vh;
+}
+
+/* Fundo claro da F04 */
+
+.home-page.modo-confirmacao {
+    min-height: 100vh;
+
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #f8fffc 25%,
+        #e8f8f1 50%,
+        #ccebdc 75%,
+        #a9d9c3 100%
+    );
+
+    position: relative;
+    isolation: isolate;
+}
+
+.home-page.modo-confirmacao::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #f8fffc 25%,
+        #e8f8f1 50%,
+        #ccebdc 75%,
+        #a9d9c3 100%
+    );
+
+    z-index: -1;
+    pointer-events: none;
 }
 
 /* ==================== CABEÇALHO ==================== */
@@ -39,73 +91,191 @@ body {
 #cabecalho {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     position: relative;
 
     border: 1px solid #ffffff;
     border-radius: 30px;
+
     margin: 20px;
     padding: 0 10px;
+
+    min-height: 60px;
+}
+
+/* ==================== CABEÇALHO DA HOME ==================== */
+
+.cabecalho-home {
+    justify-content: space-between;
 }
 
 #icon-menu,
 #icon-person {
     width: 60px;
     height: 60px;
+
     padding: 15px;
+
     cursor: pointer;
     flex-shrink: 0;
 }
 
-#cabecalho #logo {
+.cabecalho-home #logo {
     position: absolute;
+
     left: 50%;
     transform: translateX(-50%);
+
     width: clamp(90px, 18vw, 220px);
     height: auto;
+
     margin: 0;
+
     pointer-events: none;
+}
+
+/* ==================== CABEÇALHO DA F04 ==================== */
+
+.modo-confirmacao #cabecalho {
+    min-height: 52px;
+
+    margin: 20px 28px;
+
+    padding: 0 14px;
+
+    border: 1px solid #8c9994;
+    border-radius: 28px;
+
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.cabecalho-confirmacao {
+    justify-content: flex-start;
+}
+
+.cabecalho-esquerda {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+}
+
+/* Hambúrguer escuro */
+
+.botao-menu-confirmacao {
+    width: 26px;
+    height: 26px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 4px;
+
+    padding: 0;
+
+    background: transparent;
+    border: none;
+
+    cursor: pointer;
+}
+
+.botao-menu-confirmacao span {
+    display: block;
+
+    width: 18px;
+    height: 2px;
+
+    background-color: #26332e;
+
+    border-radius: 5px;
+}
+
+/* Logo da F04 */
+
+.logo-confirmacao {
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    height: 32px;
+}
+
+.logo-simbolo {
+    width: 25px;
+    height: 25px;
+
+    display: block;
+
+    object-fit: contain;
+}
+
+.logo-texto {
+    width: 76px;
+    height: auto;
+
+    display: block;
+
+    object-fit: contain;
 }
 
 /* ==================== CONTEÚDO ==================== */
 
 #corpo h2 {
     font-family: 'Montserrat', sans-serif;
+
     text-align: center;
+
     font-size: clamp(18px, 4vw, 25px);
+
     padding-top: 80px;
+
     color: #ffffff;
+
     font-weight: 500;
 
     width: 90%;
     max-width: 700px;
+
     margin: 0 auto;
 }
 
 #corpo h3 {
     font-family: 'Montserrat', sans-serif;
+
     font-weight: 300;
+
     text-align: center;
+
     font-size: clamp(13px, 3vw, 17px);
+
     color: #ffffff;
 
     width: 90%;
+
     margin: 0 auto;
 }
+
+/* ==================== SELEÇÃO ==================== */
 
 #selecionar {
     display: flex;
     flex-direction: column;
+
     align-items: center;
     justify-content: center;
 
     margin: 40px auto;
+
     gap: 20px;
 }
 
 #photo-selection {
     width: clamp(70px, 15vw, 100px);
     height: auto;
+
     padding: 20px;
 }
 
@@ -114,51 +284,69 @@ body {
 
     width: 85%;
     max-width: 300px;
+
     min-height: 60px;
 
     display: flex;
+
     justify-content: center;
     align-items: center;
 
     border-radius: 40px;
+
     border: 2px solid #96ffda;
 
     color: #ffffff;
+
     text-align: center;
 
     font-family: 'Montserrat', sans-serif;
+
     font-size: clamp(16px, 4vw, 25px);
+
     font-weight: 400;
 
     cursor: pointer;
 }
 
 #recomendacao {
-  display: flex;
-  flex-direction: row;
-  gap: 50px;                 /* Espaço controlado entre as duas colunas */
-  justify-content: center;   /* Centraliza as colunas entre si */
-  max-width: 650px;          /* O SEGREDO: Limita o tamanho para não espalhar na tela */
-  margin: 40px auto 0 auto;  /* Centraliza o bloco inteiro na página e afasta do botão de cima */
-  text-align: left;          /* Garante que o texto comece da esquerda */
+    display: flex;
+    flex-direction: row;
+
+    gap: 50px;
+
+    justify-content: center;
+
+    max-width: 650px;
+
+    margin: 40px auto 0 auto;
+
+    text-align: left;
 }
 
 .bloco {
-  flex: 1;
-  margin: 0;
-  padding-left: 20px;        /* Dá espaço para as bolinhas aparecerem perfeitamente */
-  list-style-type: disc;     /* Garante que ambos os lados tenham bolinhas idênticas */
+    flex: 1;
+
+    margin: 0;
+
+    padding-left: 20px;
+
+    list-style-type: disc;
 }
 
 .bloco li {
-  color: #ffffff;            /* Deixa todo o texto claro e legível no fundo verde */
-  margin-bottom: 15px;       /* Dá um espaço confortável entre uma frase e outra */
-  font-size: 14px;
+    color: #ffffff;
+
+    margin-bottom: 15px;
+
+    font-size: 14px;
 }
+
 /* ==================== MENU LATERAL ==================== */
 
 #menu-lateral {
     position: fixed;
+
     top: 0;
     left: 0;
 
@@ -189,6 +377,7 @@ body {
 
 .menu-header {
     display: flex;
+
     justify-content: space-between;
     align-items: center;
 
@@ -203,30 +392,37 @@ body {
 .menu-fechar {
     width: 20px;
     height: 20px;
+
     cursor: pointer;
 }
 
 .menu-titulo {
     color: #8fa09a;
+
     font-size: 14px;
+
     font-weight: 400;
 
     padding-left: 25px;
+
     margin-bottom: 15px;
 }
 
 .menu-opcoes {
     list-style: none;
+
     padding: 0 15px;
 }
 
 .opcao-item {
     display: flex;
+
     align-items: center;
 
     gap: 15px;
 
     padding: 12px 15px;
+
     margin-bottom: 8px;
 
     border-radius: 10px;
@@ -235,41 +431,51 @@ body {
 }
 
 .opcao-item:hover {
-    background: rgba(255,255,255,0.08);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .opcao-item a {
     color: #ffffff;
+
     text-decoration: none;
+
     font-size: 15px;
+
     font-weight: 500;
 }
 
 .opcao-item.ativa {
     background-color: #ffffff;
+
     border-radius: 10px 0 0 10px;
+
     margin-right: -15px;
 }
 
 .opcao-item.ativa a {
     color: #1e3830;
+
     font-weight: 600;
 }
 
 .menu-icon {
     width: 22px;
     height: 22px;
+
     object-fit: contain;
 }
 
 .menu-rodape {
     margin-top: auto;
+
     padding: 0 15px 30px;
 }
 
 .menu-divisor {
     border: 0;
+
     border-top: 1px solid #334e45;
+
     margin-bottom: 20px;
 }
 
@@ -277,119 +483,183 @@ body {
     color: #a0b0ab;
 }
 
-/* ==================== CONFIRMAÇÃO ==================== */
+/* ==================== CONFIRMAÇÃO - F04 ==================== */
 
 #container-confirmacao {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
 
-    margin: 40px auto;
-    gap: 20px;
+    align-items: center;
+    justify-content: flex-start;
+
     width: 100%;
+
+    min-height: calc(100vh - 105px);
+
+    margin: 0 auto;
+
+    padding-top: 55px;
+
+    gap: 18px;
+
+    font-family: 'Montserrat', sans-serif;
 }
 
 #container-confirmacao h2 {
     font-family: 'Montserrat', sans-serif;
+
     text-align: center;
-    font-size: clamp(18px, 4vw, 25px); /* Fluido igual ao H2 do corpo */
-    color: #ffffff;
-    font-weight: 500;
-    
-    width: 90%;
-    max-width: 700px;
-    margin: 0 auto;
+
+    font-size: 24px;
+
+    font-weight: 700;
+
+    color: #273b34;
+
+    width: auto;
+    max-width: none;
+
+    padding: 0;
+
+    margin: 0 0 10px 0;
 }
 
-.preview-box {
-    width: 90%;
-    max-width: 500px;
-    height: clamp(250px, 45vh, 400px); /* Altura elástica baseada na tela do dispositivo */
+/* ==================== FOTO ==================== */
 
-    border-radius: 20px;
-    border: 2px solid #009963; /* Borda idêntica aos inputs do seu app */
-    background-color: rgba(0, 0, 0, 0.3); /* Fundo sutil para destacar imagens transparentes */
+.preview-box {
+    width: 230px;
+    height: 230px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #16855e;
+
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.35);
+
     overflow: hidden;
 
-    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-    transition: transform 0.3s ease;
+    box-shadow: none;
 }
 
 #preview-foto {
     width: 100%;
-    height: 100%; /* Ocupa todo o container elástico */
+    height: 100%;
+
     display: block;
-    object-fit: contain; /* Evita que a folha/planta sofra distorções em qualquer tela */
+
+    object-fit: contain;
 }
+
+/* ==================== BOTÕES ==================== */
 
 .botoes-confirmacao {
     display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
+    flex-direction: column;
 
-    width: 90%;
-    max-width: 500px; /* Alinha o limite dos botões perfeitamente com a foto */
-    justify-content: center;
+    align-items: center;
+
+    gap: 9px;
+
+    width: 230px;
 }
 
 .botoes-confirmacao button {
-    flex: 1;
-    min-width: 140px;
-    min-height: 52px; /* Garante área de toque confortável no mobile */
+    width: 100%;
 
-    padding: 12px 24px;
+    min-height: 40px;
+
+    padding: 7px 16px;
+
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(14px, 3.5vw, 16px); /* Texto se adapta em telas pequenas */
-    font-weight: 400;
 
-    border: none;
-    border-radius: 20px; /* Borda arredondada idêntica ao botão #arquivo */
+    font-size: 14px;
+
+    font-weight: 500;
+
+    border-radius: 22px;
+
     cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
 }
 
+/* Botão Enviar */
+
 #btn-confirmar {
-    background-color: #04724b;
-    color: white;
-    border: 2px solid #96ffda; /* Destaque luminoso sutil */
+    background-color: #3f514a;
+
+    color: #ffffff;
+
+    border: 1px solid #3f514a;
 }
 
 #btn-confirmar:hover {
-    background-color: #035a3b;
-    transform: scale(1.03); /* Efeito suave de crescimento igual aos outros botões */
+    background-color: #33423c;
+
+    transform: scale(1.02);
 }
 
+/* Botão Escolher outra */
+
 #btn-alterar {
-    background: transparent;
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.22);
+
+    color: #147a58;
+
+    border: 1px solid #16855e;
 }
 
 #btn-alterar:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: #ffffff;
-    transform: scale(1.03);
+    background-color: rgba(22, 133, 94, 0.08);
+
+    transform: scale(1.02);
 }
 
-/* ==================== TABLET (até 768px) ==================== */
+/* ==================== TABLET ==================== */
 
 @media (max-width: 768px) {
 
     #cabecalho {
         margin: 12px 15px;
+
         padding: 0 8px;
+
+        min-height: 48px;
     }
 
     #icon-menu,
     #icon-person {
         width: 48px;
         height: 48px;
+
         padding: 12px;
+    }
+
+    .modo-confirmacao #cabecalho {
+        margin: 14px 22px;
+
+        min-height: 48px;
+    }
+
+    .logo-simbolo {
+        width: 23px;
+        height: 23px;
+    }
+
+    .logo-texto {
+        width: 72px;
     }
 
     #corpo h2 {
         padding-top: 50px;
+
         width: 92%;
     }
 
@@ -399,6 +669,7 @@ body {
 
     #arquivo {
         width: 80%;
+
         min-height: 55px;
     }
 
@@ -410,40 +681,100 @@ body {
         font-size: 14px;
     }
 
+    #container-confirmacao {
+        padding-top: 45px;
+    }
+
+    #container-confirmacao h2 {
+        padding: 0;
+
+        font-size: 22px;
+    }
+
+    .preview-box {
+        width: 210px;
+        height: 210px;
+    }
+
     .botoes-confirmacao {
-        gap: 10px;
+        width: 210px;
+    }
+
+    .botoes-confirmacao button {
+        min-height: 38px;
+        font-size: 13px;
     }
 }
 
-/* ==================== CELULAR (até 480px) ==================== */
+/* ==================== CELULAR ==================== */
 
 @media (max-width: 480px) {
 
     #cabecalho {
         margin: 10px 12px;
+
         border-radius: 20px;
+
         padding: 0 4px;
+
+        min-height: 40px;
     }
 
     #icon-menu,
     #icon-person {
         width: 40px;
         height: 40px;
+
         padding: 10px;
     }
 
-    #logo {
+    .cabecalho-home #logo {
         width: 90px;
+    }
+
+    .modo-confirmacao #cabecalho {
+        margin: 10px 14px;
+
+        min-height: 44px;
+
+        padding: 0 12px;
+
+        border-radius: 22px;
+    }
+
+    .cabecalho-esquerda {
+        gap: 9px;
+    }
+
+    .botao-menu-confirmacao {
+        width: 23px;
+        height: 23px;
+    }
+
+    .botao-menu-confirmacao span {
+        width: 16px;
+    }
+
+    .logo-simbolo {
+        width: 21px;
+        height: 21px;
+    }
+
+    .logo-texto {
+        width: 66px;
     }
 
     #corpo h2 {
         padding-top: 35px;
+
         width: 95%;
     }
 
     #arquivo {
         width: 88%;
+
         min-height: 52px;
+
         font-size: 16px;
     }
 
@@ -455,26 +786,47 @@ body {
         width: 85vw;
     }
 
-    .botoes-confirmacao {
-        flex-direction: column;
+    #container-confirmacao {
+        padding-top: 35px;
+
+        gap: 14px;
     }
 
-    .botoes-confirmacao button {
-        width: 100%;
-        min-width: unset;
+    #container-confirmacao h2 {
+        padding: 0;
+
+        width: 90%;
+
+        font-size: 20px;
     }
 
     .preview-box {
-        padding: 12px;
+        width: 190px;
+        height: 190px;
+    }
+
+    .botoes-confirmacao {
+        width: 190px;
+
+        gap: 8px;
+    }
+
+    .botoes-confirmacao button {
+        min-height: 36px;
+
+        padding: 6px 12px;
+
+        font-size: 12px;
     }
 }
 
-/* ==================== TELAS MUITO PEQUENAS (até 360px) ==================== */
+/* ==================== TELAS MUITO PEQUENAS ==================== */
 
 @media (max-width: 360px) {
 
     #cabecalho {
         margin: 8px;
+
         border-radius: 15px;
     }
 
@@ -482,10 +834,43 @@ body {
     #icon-person {
         width: 34px;
         height: 34px;
+
         padding: 8px;
     }
 
-    #logo {
+    .cabecalho-home #logo {
         width: 75px;
+    }
+
+    .modo-confirmacao #cabecalho {
+        margin: 8px 10px;
+
+        min-height: 42px;
+    }
+
+    .logo-simbolo {
+        width: 19px;
+        height: 19px;
+    }
+
+    .logo-texto {
+        width: 61px;
+    }
+
+    #container-confirmacao {
+        padding-top: 28px;
+    }
+
+    #container-confirmacao h2 {
+        font-size: 19px;
+    }
+
+    .preview-box {
+        width: 170px;
+        height: 170px;
+    }
+
+    .botoes-confirmacao {
+        width: 170px;
     }
 }

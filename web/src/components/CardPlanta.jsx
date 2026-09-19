@@ -1,29 +1,45 @@
 import { Link } from "react-router-dom";
-import iconSeta from "../assets/images/icon-seta.png";
 
-export default function CardPlanta({ id, imagem, nome, descricao, rotaLink }) {
+export default function CardPlanta({
+  imagem,
+  nome,
+  descricao,
+  rotaLink,
+}) {
   return (
-    <Link to={rotaLink} style={{ textDecoration: 'none', color: 'inherit' }}>
-      <div className="box-plant">
-        <div className="image-plant">
-          <img src={imagem} alt={nome} />
+    <Link
+      to={rotaLink}
+      className="historico-card-link"
+    >
+      <article className="historico-card">
+
+        <div className="historico-card-imagem">
+          <img
+            src={imagem}
+            alt={nome || "Planta analisada"}
+          />
         </div>
 
-        <div className="info-plant">
-          <div className="title-plant">
-            <h3>{nome}</h3>
-          </div>
+        <div className="historico-card-info">
 
-          <div className="description-plant">
-            <p>{descricao}</p>
-          </div>
-          
-          <div className="button-seta"> 
-            <img src={iconSeta} alt="Avançar" />
-            <p>Saiba mais</p>
-          </div>
+          <h3>
+            {nome || "Planta analisada"}
+          </h3>
+
+          <p>
+            {descricao || "Informações da análise realizada."}
+          </p>
+
         </div>
-      </div>
+
+        <div
+          className="historico-card-seta"
+          aria-hidden="true"
+        >
+          →
+        </div>
+
+      </article>
     </Link>
   );
 }
