@@ -78,3 +78,21 @@
 .campo-botao button:hover {
   transform: scale(1.05);
 }
+
+.voltar{
+  background-color: #04724b00;
+  color: #ffffff;
+  border: 2px solid #f4f7f6;
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.voltar:hover {
+  transform: scale(1.05);
+  background-color: #04724b;
+  color: #ffffff;
+}

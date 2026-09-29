@@ -88,6 +88,7 @@ export default function Propriedade() {
       <BarraProgresso valor={100} />
 
       <h3>Informações sobre sua fazenda</h3>
+      <button className="voltar" onClick={() => navigate("/")}>Voltar</button>
 
       <div className="campo">
         <label>Nome da Fazenda</label>
