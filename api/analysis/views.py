@@ -14,10 +14,11 @@ from analysis.serializers.response_serializers import (
 )
 from analysis.services.plant_analisys_service import PlantAnalysisService
 
+
 class PlantAnalysisViewSet(viewsets.ViewSet):
     """
     API de Análise de Plantas
-    
+
     Endpoints para análise de imagens de plantas e histórico de análises.
     """
 
@@ -33,15 +34,21 @@ class PlantAnalysisViewSet(viewsets.ViewSet):
     def create(self, request):
         """
         Analisa uma imagem de planta.
-        
+
         Aceita imagem em formato Base64 Data URI e retorna diagnóstico.
         """
         serializer = AnalysisSerializer(
             data=request.data
         )
-        serializer.is_valid(raise_exception=True)
+
+        serializer.is_valid(
+            raise_exception=True
+        )
+
         dto = serializer.to_dto()
+
         result = PlantAnalysisService.analisys(dto)
+
         return Response(
             result,
             status=status.HTTP_200_OK
@@ -53,11 +60,11 @@ class PlantAnalysisViewSet(viewsets.ViewSet):
                     "Inclui informações da imagem e o primeiro resultado de análise de cada busca.",
         parameters=[
             OpenApiParameter(
-                name='userId',
+                name="userId",
                 type=OpenApiTypes.INT,
                 location=OpenApiParameter.QUERY,
                 required=True,
-                description='ID do usuário proprietário das análises'
+                description="ID do usuário proprietário das análises"
             )
         ],
         responses={
@@ -69,10 +76,10 @@ class PlantAnalysisViewSet(viewsets.ViewSet):
     def list(self, request):
         """
         Lista histórico de análises de um usuário.
-        
+
         Retorna apenas análises com resultado_type = RESULT_COMPLETE.
         Ordenadas por data da requisição (mais recentes primeiro).
-        
+
         Parâmetro obrigatório: userId (query parameter)
         """
         user_id = request.query_params.get("userId")
@@ -83,8 +90,16 @@ class PlantAnalysisViewSet(viewsets.ViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+        try:
+            user_id = int(user_id)
+        except (TypeError, ValueError):
+            return Response(
+                {"message": "userId deve ser um número inteiro válido"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
         result = PlantAnalysisService.get_history(
-            int(user_id),
+            user_id,
             request=request
         )
 
@@ -98,23 +113,23 @@ class PlantAnalysisViewSet(viewsets.ViewSet):
         description="Retorna detalhes completos de uma análise específica",
         parameters=[
             OpenApiParameter(
-                name='userId',
+                name="userId",
                 type=OpenApiTypes.INT,
                 location=OpenApiParameter.QUERY,
                 required=True,
-                description='ID do usuário'
+                description="ID do usuário"
             )
         ],
         responses={
             200: AnalysisDetailResponseSerializer,
-            400: {"description": "userId não fornecido"},
-            404: {"description": "Análise não encontrada"},
+            400: {"description": "Identificador não fornecido ou inválido"},
+            404: {"description": "Usuário ou análise não encontrada"},
         }
     )
     def retrieve(self, request, pk=None):
         """
         Obtém detalhes de uma análise específica.
-        
+
         Parâmetro obrigatório: userId (query parameter)
         """
         user_id = request.query_params.get("userId")
@@ -125,9 +140,21 @@ class PlantAnalysisViewSet(viewsets.ViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+        try:
+            search_request_id = int(pk)
+            user_id = int(user_id)
+        except (TypeError, ValueError):
+            return Response(
+                {
+                    "message":
+                    "Os identificadores devem ser números inteiros válidos"
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
         result = PlantAnalysisService.get_details(
-            int(pk),
-            int(user_id),
+            search_request_id,
+            user_id,
             request=request
         )
 
@@ -144,28 +171,39 @@ class PlantAnalysisViewSet(viewsets.ViewSet):
                     "Apenas administradores podem acessar.",
         parameters=[
             OpenApiParameter(
-                name='requested_by',
+                name="requested_by",
                 type=OpenApiTypes.INT,
                 location=OpenApiParameter.QUERY,
                 required=True,
-                description='ID do usuário solicitante (deve ser administrador)'
+                description="ID do usuário solicitante (deve ser administrador)"
             )
         ],
         responses={
             200: AllAnalysisItemSerializer(many=True),
-            400: {"description": "Parâmetro requested_by não fornecido"},
-            404: {"description": "Usuário solicitante não encontrado ou não é administrador"},
+            400: {
+                "description":
+                "Parâmetro requested_by não fornecido ou inválido"
+            },
+            403: {
+                "description":
+                "Usuário solicitante não é administrador"
+            },
+            404: {
+                "description":
+                "Usuário solicitante não encontrado"
+            },
         }
     )
     @action(
         detail=False,
-        methods=['get'],
-        url_path='all-analysis'
+        methods=["get"],
+        url_path="all-analysis"
     )
     def all_analysis(self, request):
         """
-        Lista todas as análises de todos os usuários (sucesso, erro e pendente).
-        
+        Lista todas as análises de todos os usuários
+        (sucesso, erro e pendente).
+
         Retorna:
         - ID da SearchRequest
         - Data e hora da requisição
@@ -173,9 +211,10 @@ class PlantAnalysisViewSet(viewsets.ViewSet):
         - Resultado:
             - Se sucesso: nome da primeira planta identificada
             - Se erro: descrição do erro
-        
+
         Parâmetro obrigatório:
-        - requested_by (query parameter): ID do usuário solicitante (deve ser admin)
+        - requested_by (query parameter):
+          ID do usuário solicitante (deve ser admin)
         """
         requested_by = request.query_params.get("requested_by")
 
@@ -185,8 +224,19 @@ class PlantAnalysisViewSet(viewsets.ViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+        try:
+            requested_by = int(requested_by)
+        except (TypeError, ValueError):
+            return Response(
+                {
+                    "message":
+                    "requested_by deve ser um número inteiro válido"
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
         result = PlantAnalysisService.get_all_analysis(
-            int(requested_by)
+            requested_by
         )
 
         return Response(

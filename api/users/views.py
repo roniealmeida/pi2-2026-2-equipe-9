@@ -39,7 +39,8 @@ class UserViewSet(viewsets.ViewSet):
         request=LoginSerializer,
         responses={
             200: LoginResponseSerializer,
-            400: {"description": "Dados inválidos"}
+            400: {"description": "Dados inválidos"},
+            401: {"description": "Telefone ou senha incorretos"}
         }
     )
     @action(detail=False, methods=["post"])
@@ -137,6 +138,12 @@ class UserViewSet(viewsets.ViewSet):
             "requested_by"
         )
 
+        if not requested_by:
+            return Response(
+                {"message": "requested_by é obrigatório"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
         result = UserService.list_admins(
             requested_by
         )
@@ -154,6 +161,12 @@ class UserViewSet(viewsets.ViewSet):
         requested_by = request.query_params.get(
             "requested_by"
         )
+
+        if not requested_by:
+            return Response(
+                {"message": "requested_by é obrigatório"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
         result = UserService.list_users(
             requested_by
@@ -212,7 +225,7 @@ class UserViewSet(viewsets.ViewSet):
     def update_profile(self, request):
         """
         Atualiza os dados cadastrais do usuário.
-        
+
         Permite atualização parcial ou completa de:
         - Nome do usuário
         - Telefone
@@ -220,7 +233,7 @@ class UserViewSet(viewsets.ViewSet):
         - Estado
         - Localidade
         - Município
-        
+
         Parâmetro obrigatório: user_id (no body da requisição)
         """
         serializer = UpdateUserSerializer(
