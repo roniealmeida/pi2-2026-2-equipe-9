@@ -1,5 +1,7 @@
 # Modelo Entidade-Relacionamento (MER)
 
+```mermaid
+erDiagram
     USUARIO {
         int id_usuario PK
         string nome
