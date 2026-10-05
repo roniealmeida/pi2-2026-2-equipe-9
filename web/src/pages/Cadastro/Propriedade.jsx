@@ -79,7 +79,7 @@ export default function Propriedade() {
       alert("Cadastro feito com sucesso!");
       navigate("/");
     } catch (err) {
-      alert("Erro no cadastro");
+      alert("Erro no cadastro" , err);
     }
   };
 

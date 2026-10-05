@@ -1,6 +1,19 @@
 version: "3.9"
 
 services:
+  db:
+    image: postgres:15-alpine
+    container_name: plant-analysis-db
+    environment:
+      POSTGRES_DB: analisaai
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
   api:
     build:
       context: ./api
@@ -20,9 +33,19 @@ services:
       MEDIA_URL: "/media/"
       MEDIA_ROOT: "/app/media"
       MEDIA_BASE_URL: ""
+      DB_NAME: "analisaai"
+      DB_USER: "postgres"
+      DB_PASSWORD: "postgrespassword"
+      DB_HOST: "db"
+      DB_PORT: "5432"
+      DB_SSL: "disable"
 
     volumes:
       - ./api/media:/app/media
+      - ./seed.sql:/app/seed.sql
+
+    depends_on:
+      - db
 
     restart: unless-stopped
 
@@ -47,3 +70,6 @@ services:
       CHOKIDAR_USEPOLLING: "true"
 
     restart: unless-stopped
+
+volumes:
+  postgres_data:

@@ -28,6 +28,7 @@ class UserViewSet(viewsets.ViewSet):
         if self.action in [
             "login",
             "create"
+            "create_admin"
         ]:
             return [AllowAny()]
 
