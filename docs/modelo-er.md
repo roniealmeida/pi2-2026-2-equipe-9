@@ -1,4 +1,4 @@
-'''mermaid
+```mermaid
 erDiagram
 
     USUARIO {
@@ -69,3 +69,4 @@ erDiagram
     IMAGEM ||--o| ANALISE : gera
     PLANTA ||--o{ ANALISE : identificada_em
     USUARIO ||--o{ RECUPERACAO_SENHA : solicita
+```
