@@ -56,8 +56,8 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(90deg, #000000, #009963);
-
+    background: #012418;
+    background-image: none;
     margin: 0;
     padding: 0;
 }
@@ -91,6 +91,7 @@ body {
 #title {
     display: flex;
     width: 100%;
+    margin-top: 20px;
 }
 
 .textos {
@@ -100,6 +101,7 @@ body {
     font-weight: 800;
     color: #ffffff;
     width: 100%;
+    margin-top: 20px;
 }
 
 /* INPUTS */
@@ -251,6 +253,24 @@ body {
     cursor: pointer;
 
     transition: 0.3s;
+}
+
+#esqSenha {
+    border: none;
+    color: #ffffff;
+    background-color: transparent;
+
+    font-size: 14px;
+    font-weight: 300;
+    font-family: 'Montserrat', sans-serif;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+#esqSenha:hover {
+    text-decoration: underline;
 }
 
 #entrar:hover,

@@ -37,9 +37,12 @@ export default function Login() {
   };
 
   function cadastrar() {
-    navigate("/cadastro");
+    navigate("/opcoesCadastro");
   }
 
+  function esqSenha(){
+    navigate("/esqSenha");
+  }
   if (carregando) {
     return <Loading />;
   }
@@ -86,6 +89,7 @@ export default function Login() {
               </button>
             </div>
           </div>
+        
         </div>
 
         <div className="recall-forget">
@@ -93,6 +97,9 @@ export default function Login() {
             <input type="checkbox" />
             Lembre de mim
           </label>
+          <button id="esqSenha" onClick={esqSenha}>
+            Esqueci minha senha
+          </button>
         </div>
 
         <div id="buttons">
