@@ -1,0 +1,330 @@
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../assets/fonts/Montserrat/static/Montserrat-Light.ttf') format('truetype');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../assets/fonts/Montserrat/static/Montserrat-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../assets/fonts/Montserrat/static/Montserrat-Medium.ttf') format('truetype');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../assets/fonts/Montserrat/static/Montserrat-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+/* ==================== ESTRUTURA BASE DA F04 ==================== */
+
+.home-page.modo-confirmacao {
+  min-height: 100vh;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f8fffc 25%,
+    #e8f8f1 50%,
+    #ccebdc 75%,
+    #a9d9c3 100%
+  );
+  position: relative;
+  isolation: isolate;
+  font-family: 'Montserrat', sans-serif;
+  color: #273b34;
+}
+
+.home-page.modo-confirmacao::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f8fffc 25%,
+    #e8f8f1 50%,
+    #ccebdc 75%,
+    #a9d9c3 100%
+  );
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ==================== CABEÇALHO F04 ==================== */
+
+.modo-confirmacao #cabecalho {
+  min-height: 52px;
+  margin: 20px 28px;
+  padding: 0 14px;
+  border: 1px solid #8c9994;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+}
+
+.cabecalho-confirmacao {
+  justify-content: flex-start;
+}
+
+.cabecalho-esquerda {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.botao-menu-confirmacao {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.botao-menu-confirmacao span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background-color: #26332e;
+  border-radius: 5px;
+}
+
+.logo-confirmacao {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 32px;
+}
+
+.logo-simbolo {
+  width: 25px;
+  height: 25px;
+  display: block;
+  object-fit: contain;
+}
+
+.logo-texto {
+  width: 76px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* ==================== CONTEÚDO DO PERFIL ==================== */
+
+.editar-perfil-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px 28px 50px 28px;
+  box-sizing: border-box;
+}
+
+.editar-perfil-container h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #273b34;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.editar-perfil-container h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #273b34;
+  margin-top: 0;
+  margin-bottom: 28px;
+  text-align: left;
+}
+
+/* ==================== FORMULÁRIO E CAMPOS ==================== */
+
+.formulario-perfil {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.colunas-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 32px;
+}
+
+.campo-com-botao,
+.campo-sem-botao {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.campo-com-botao label,
+.campo-sem-botao label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #273b34;
+  text-align: left;
+}
+
+.campo-com-botao .input-botao-wrapper {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.campo-com-botao input,
+.campo-sem-botao select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #8c9994;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #ffffff;
+  color: #273b34;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.campo-com-botao input {
+  flex: 1;
+  min-width: 0;
+}
+
+.campo-com-botao input:disabled {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #6a7c75;
+  cursor: not-allowed;
+}
+
+.campo-com-botao input:focus,
+.campo-sem-botao select:focus {
+  border-color: #273b34;
+}
+
+/* ==================== BOTÃO EDITAR ==================== */
+
+.campo-com-botao .btn-editar {
+  background-color: #273b34;
+  color: #ffffff;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: opacity 0.2s ease;
+}
+
+.campo-com-botao .btn-editar:hover {
+  opacity: 0.9;
+}
+
+/* ==================== BOTÕES FINAIS ==================== */
+
+.botoes-finais {
+  display: flex;
+  justify-content: flex-start;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.btn-salvar,
+.btn-cancelar {
+  padding: 11px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  transition: opacity 0.2s ease;
+}
+
+.btn-salvar {
+  background-color: #273b34;
+  color: #ffffff;
+}
+
+.btn-cancelar {
+  background-color: transparent;
+  color: #273b34;
+  border: 1px solid #8c9994;
+}
+
+.btn-salvar:hover,
+.btn-cancelar:hover {
+  opacity: 0.85;
+}
+
+/* ==================== RESPONSIVIDADE (MESMAS REGRAS F04) ==================== */
+
+@media (max-width: 768px) {
+  .modo-confirmacao #cabecalho {
+    margin: 14px 22px;
+    min-height: 48px;
+  }
+
+  .colunas-2 {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .botoes-finais {
+    width: 100%;
+  }
+
+  .btn-salvar,
+  .btn-cancelar {
+    flex: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .modo-confirmacao #cabecalho {
+    margin: 10px 14px;
+    min-height: 44px;
+    padding: 0 12px;
+    border-radius: 22px;
+  }
+
+  .editar-perfil-container {
+    padding: 20px 16px 40px 16px;
+  }
+
+  .editar-perfil-container h2 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .modo-confirmacao #cabecalho {
+    margin: 8px 10px;
+    min-height: 42px;
+  }
+}

@@ -1,0 +1,86 @@
+#opcoes-container{
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+}
+
+.opcao>button{
+    border: 2px solid #04724b;
+    color: #ffffff;
+    background-color: #04724b;
+    border-radius: 20px;
+
+    padding: 12px 25px;
+    margin: 15px;
+
+    font-size: 14px;
+    font-weight: 300;
+    font-family: 'Montserrat', sans-serif;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.opcao>button:hover{
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.form-cadastro{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.campo{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+}
+
+.form-cadastro label{
+    color: #ffffff;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.form-cadastro input, select{
+    border: 2px solid #009963;
+    border-radius: 15px;
+    padding-left: 15px;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #ffffff;
+}
+
+h4{
+    color: #ffffff;
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+form>button{
+    background-color: #04724b;
+    color: #ffffff;
+    border: 2px solid #04724b;
+    border-radius: 20px;
+    padding: 12px 40px;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+form>button:hover{
+    background-color: #ffffff;
+    color: #000000;
+}
