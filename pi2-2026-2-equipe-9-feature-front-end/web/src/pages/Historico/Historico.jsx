@@ -12,6 +12,8 @@ import logoClara from "../../assets/images/Logo-AnalisaAI.png";
 
 import "./Historico.css";
 
+const BASE_URL_API = "http://localhost:8000";
+
 export default function Historico() {
   const [menuAberto, setMenuAberto] = useState(false);
 
@@ -30,7 +32,21 @@ export default function Historico() {
     if (user?.id) {
       fetchAnalysisHistory(user.id);
     }
-  }, [user?.id]);
+  }, [user?.id, fetchAnalysisHistory]);
+
+  const getImagemUrl = (planta) => {
+    const imgPath =
+      planta.image ||
+      planta.image_url ||
+      planta.analysis_result?.image ||
+      planta.analysis_result?.image_url;
+
+    if (!imgPath) return "";
+    if (imgPath.startsWith("http://") || imgPath.startsWith("https://")) {
+      return imgPath;
+    }
+    return `${BASE_URL_API}${imgPath.startsWith("/") ? "" : "/"}${imgPath}`;
+  };
 
   return (
     <div className="historico-page">
@@ -99,9 +115,15 @@ export default function Historico() {
             {analysisHistory.map((planta) => (
               <CardPlanta
                 key={planta.search_request_id}
-                imagem={planta.image}
-                nome={planta.analysis_result?.common_name}
-                descricao={planta.analysis_result?.Description}
+                imagem={getImagemUrl(planta)}
+                nome={
+                  planta.analysis_result?.common_name ||
+                  planta.analysis_result?.CommonName
+                }
+                descricao={
+                  planta.analysis_result?.Description ||
+                  planta.analysis_result?.description
+                }
                 rotaLink={`/resultado/${planta.search_request_id}`}
               />
             ))}

@@ -27,22 +27,10 @@
 .resultado-page {
     width: 100%;
     min-height: 100vh;
-
     box-sizing: border-box;
-
-    background: linear-gradient(
-        180deg,
-        #ffffff 0%,
-        #f8fffc 25%,
-        #e8f8f1 50%,
-        #ccebdc 75%,
-        #a9d9c3 100%
-    );
-
-    color: #273b34;
-
+    background: linear-gradient(135deg, #021a12 0%, #004d32 100%);
+    color: #ffffff;
     font-family: 'Montserrat', sans-serif;
-
     position: relative;
     isolation: isolate;
 }
@@ -51,22 +39,11 @@
 
 .resultado-page::before {
     content: "";
-
     position: fixed;
     inset: 0;
-
     width: 100vw;
     height: 100vh;
-
-    background: linear-gradient(
-        180deg,
-        #ffffff 0%,
-        #f8fffc 25%,
-        #e8f8f1 50%,
-        #ccebdc 75%,
-        #a9d9c3 100%
-    );
-
+    background: linear-gradient(135deg, #021a12 0%, #004d32 100%);
     z-index: -1;
     pointer-events: none;
 }
@@ -75,28 +52,22 @@
 
 .resultado-header {
     width: 100%;
-
     box-sizing: border-box;
-
     padding: 20px 28px 0;
 }
 
 .resultado-cabecalho {
     width: 100%;
     min-height: 52px;
-
     display: flex;
     align-items: center;
     justify-content: flex-start;
-
     padding: 0 14px;
-
     box-sizing: border-box;
-
-    border: 1px solid #8c9994;
+    border: 1px solid #009963;
     border-radius: 28px;
-
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
 }
 
 /* ==================== HAMBÚRGUER ==================== */
@@ -104,64 +75,39 @@
 .resultado-menu {
     width: 26px;
     height: 26px;
-
     display: flex;
     flex-direction: column;
-
     align-items: center;
     justify-content: center;
-
     gap: 4px;
-
     padding: 0;
     margin: 0 12px 0 0;
-
     border: none;
-
     background: transparent;
-
     cursor: pointer;
 }
 
 .resultado-menu span {
     display: block;
-
     width: 18px;
     height: 2px;
-
-    background: #26332e;
-
+    background: #ffffff;
     border-radius: 5px;
 }
 
 /* ==================== LOGO ==================== */
 
 .resultado-logo {
-    height: 32px;
-
     display: flex;
     align-items: center;
-
-    gap: 5px;
-
+    height: 30px;
     cursor: pointer;
 }
 
-.resultado-logo-simbolo {
-    width: 25px;
-    height: 25px;
-
+.resultado-logo .resultado-logo-texto {
+    height: 30px !important;
+    width: auto !important;
     display: block;
-
-    object-fit: contain;
-}
-
-.resultado-logo-texto {
-    width: 76px;
-    height: auto;
-
-    display: block;
-
     object-fit: contain;
 }
 
@@ -170,11 +116,8 @@
 .resultado-conteudo {
     width: 100%;
     max-width: 1150px;
-
     margin: 0 auto;
-
     padding: 55px 30px 70px;
-
     box-sizing: border-box;
 }
 
@@ -184,35 +127,22 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     min-height: 38px;
-
     padding: 7px 18px;
-
     margin: 0 0 22px;
-
-    border: 1px solid #16855e;
+    border: 2px solid #009963;
     border-radius: 22px;
-
-    background: rgba(255, 255, 255, 0.2);
-
-    color: #147a58;
-
+    background: transparent;
+    color: #ffffff;
     font-family: 'Montserrat', sans-serif;
-
     font-size: 13px;
     font-weight: 500;
-
     cursor: pointer;
-
-    transition:
-        background-color 0.2s ease,
-        transform 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .resultado-voltar:hover {
-    background: rgba(22, 133, 94, 0.08);
-
+    background: rgba(0, 153, 99, 0.2);
     transform: translateX(-2px);
 }
 
@@ -220,26 +150,19 @@
 
 .resultado-conteudo h1 {
     margin: 0 0 42px;
-
     font-family: 'Montserrat', sans-serif;
-
     font-size: 24px;
     font-weight: 700;
-
-    color: #273b34;
+    color: #ffffff;
 }
 
 /* ==================== INFORMAÇÕES ==================== */
 
 .resultado-informacoes {
     width: 100%;
-
     display: grid;
-
     grid-template-columns: 260px 1fr 1fr;
-
     align-items: start;
-
     column-gap: 65px;
 }
 
@@ -248,32 +171,26 @@
 .resultado-planta {
     display: flex;
     flex-direction: column;
-
     align-items: center;
 }
 
 .resultado-foto {
     width: 230px;
     height: 190px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     overflow: hidden;
-
-    border: 1px solid #16855e;
-    border-radius: 10px;
-
-    background: rgba(255, 255, 255, 0.25);
+    border: 2px solid #009963;
+    border-radius: 12px;
+    background: #021a12;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 .resultado-foto img {
     width: 100%;
     height: 100%;
-
     display: block;
-
     object-fit: cover;
 }
 
@@ -281,31 +198,25 @@
 
 .resultado-cientifico {
     width: 230px;
-
-    margin-top: 9px;
-
+    margin-top: 12px;
     display: flex;
     flex-direction: column;
-
     text-align: center;
-
-    color: #273b34;
+    color: #ffffff;
 }
 
 .resultado-cientifico span {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 400;
+    color: #a0aec0;
 }
 
 .resultado-cientifico strong {
     margin-top: 2px;
-
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
-
     line-height: 1.25;
-
-    color: #273b34;
+    color: #ffffff;
 }
 
 /* ==================== COLUNAS ==================== */
@@ -313,7 +224,6 @@
 .resultado-coluna {
     display: flex;
     flex-direction: column;
-
     gap: 28px;
 }
 
@@ -322,32 +232,24 @@
 .resultado-grupo {
     display: flex;
     flex-direction: column;
-
-    color: #273b34;
+    color: #ffffff;
 }
 
 .resultado-grupo span {
     margin-bottom: 4px;
-
     font-family: 'Montserrat', sans-serif;
-
     font-size: 13px;
     font-weight: 400;
-
     line-height: 1.2;
-
-    color: #273b34;
+    color: #cbd5e0;
 }
 
 .resultado-grupo strong {
     font-family: 'Montserrat', sans-serif;
-
     font-size: 13px;
     font-weight: 600;
-
     line-height: 1.4;
-
-    color: #273b34;
+    color: #ffffff;
 }
 
 /* ==================== CARREGAMENTO / ERRO ==================== */
@@ -355,62 +257,49 @@
 .resultado-status {
     display: flex;
     flex-direction: column;
-
     align-items: center;
     justify-content: center;
-
     gap: 20px;
-
     padding: 40px;
-
     text-align: center;
-
     box-sizing: border-box;
 }
 
 .resultado-status p {
     margin: 0;
-
     font-family: 'Montserrat', sans-serif;
-
     font-size: 14px;
-
-    color: #273b34;
+    color: #ffffff;
 }
 
 .resultado-status button {
     min-height: 38px;
-
     padding: 7px 20px;
-
-    border: 1px solid #16855e;
+    border: 2px solid #009963;
     border-radius: 22px;
-
     background: transparent;
-
-    color: #147a58;
-
+    color: #ffffff;
     font-family: 'Montserrat', sans-serif;
-
     font-size: 13px;
     font-weight: 500;
-
     cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.resultado-status button:hover {
+    background: rgba(0, 153, 99, 0.2);
 }
 
 /* ==================== TABLET ==================== */
 
 @media (max-width: 900px) {
-
     .resultado-conteudo {
         max-width: 800px;
-
         padding: 50px 28px 60px;
     }
 
     .resultado-informacoes {
         grid-template-columns: 210px 1fr 1fr;
-
         column-gap: 30px;
     }
 
@@ -432,7 +321,6 @@
 /* ==================== TABLET MENOR ==================== */
 
 @media (max-width: 768px) {
-
     .resultado-header {
         padding: 14px 16px 0;
     }
@@ -443,13 +331,11 @@
 
     .resultado-conteudo h1 {
         margin-bottom: 35px;
-
         font-size: 22px;
     }
 
     .resultado-informacoes {
         grid-template-columns: 180px 1fr 1fr;
-
         column-gap: 22px;
     }
 
@@ -475,24 +361,13 @@
 /* ==================== CELULAR ==================== */
 
 @media (max-width: 600px) {
-
     .resultado-header {
         padding: 12px 14px 0;
     }
 
     .resultado-cabecalho {
         min-height: 46px;
-
         padding: 0 12px;
-    }
-
-    .resultado-logo-simbolo {
-        width: 22px;
-        height: 22px;
-    }
-
-    .resultado-logo-texto {
-        width: 68px;
     }
 
     .resultado-conteudo {
@@ -501,26 +376,20 @@
 
     .resultado-voltar {
         min-height: 35px;
-
         padding: 6px 15px;
-
         margin-bottom: 20px;
-
         font-size: 12px;
     }
 
     .resultado-conteudo h1 {
         margin-bottom: 30px;
-
         font-size: 21px;
     }
 
     .resultado-informacoes {
         display: flex;
         flex-direction: column;
-
         align-items: center;
-
         gap: 30px;
     }
 
@@ -535,7 +404,6 @@
 
     .resultado-coluna {
         width: 100%;
-
         gap: 22px;
     }
 
@@ -543,10 +411,7 @@
         text-align: left;
     }
 
-    .resultado-grupo span {
-        font-size: 12px;
-    }
-
+    .resultado-grupo span,
     .resultado-grupo strong {
         font-size: 12px;
     }
@@ -555,7 +420,6 @@
 /* ==================== TELAS MUITO PEQUENAS ==================== */
 
 @media (max-width: 400px) {
-
     .resultado-conteudo {
         padding-left: 18px;
         padding-right: 18px;

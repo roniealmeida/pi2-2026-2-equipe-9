@@ -8,8 +8,9 @@ import useAnalysisStore from "../../stores/analysisStore";
 import useAuthStore from "../../stores/authStore";
 import Loading from "../../components/Loading";
 
-import logoEscura from "../../assets/images/Logo-AnalisaAI-Escura.png";
-import logoSimbolo from "../../assets/images/Logo-AnalisaAI-Simbolo.png";
+import logoClara from "../../assets/images/Logo-AnalisaAI.png";
+
+const BASE_URL_API = "http://localhost:8000";
 
 export default function Resultado() {
   const { id } = useParams();
@@ -31,6 +32,20 @@ export default function Resultado() {
       fetchAnalysisById(id, user.id);
     }
   }, [id, user?.id, fetchAnalysisById]);
+
+  const getImagemUrl = (planta) => {
+    const imgPath =
+      planta.image ||
+      planta.image_url ||
+      planta.analysis_result?.image ||
+      planta.analysis_result?.image_url;
+
+    if (!imgPath) return "";
+    if (imgPath.startsWith("http://") || imgPath.startsWith("https://")) {
+      return imgPath;
+    }
+    return `${BASE_URL_API}${imgPath.startsWith("/") ? "" : "/"}${imgPath}`;
+  };
 
   /* ==================== CARREGAMENTO ==================== */
 
@@ -102,14 +117,8 @@ export default function Resultado() {
             onClick={() => navigate("/home")}
           >
             <img
-              className="resultado-logo-simbolo"
-              src={logoSimbolo}
-              alt=""
-            />
-
-            <img
               className="resultado-logo-texto"
-              src={logoEscura}
+              src={logoClara}
               alt="AnalisaAI"
             />
           </div>
@@ -139,15 +148,21 @@ export default function Resultado() {
 
             <div className="resultado-foto">
               <img
-                src={planta.image}
-                alt={planta.common_name || "Planta analisada"}
+                src={getImagemUrl(planta)}
+                alt={
+                  planta.common_name ||
+                  planta.CommonName ||
+                  "Planta analisada"
+                }
               />
             </div>
 
-            {planta.scientific_name && (
+            {(planta.scientific_name || planta.ScientificName) && (
               <div className="resultado-cientifico">
                 <span>Nome científico</span>
-                <strong>{planta.scientific_name}</strong>
+                <strong>
+                  {planta.scientific_name || planta.ScientificName}
+                </strong>
               </div>
             )}
 
@@ -159,12 +174,16 @@ export default function Resultado() {
 
             <div className="resultado-grupo">
               <span>Nome Popular</span>
-              <strong>{planta.common_name}</strong>
+              <strong>
+                {planta.common_name || planta.CommonName}
+              </strong>
             </div>
 
             <div className="resultado-grupo">
               <span>Descrição</span>
-              <strong>{planta.description}</strong>
+              <strong>
+                {planta.description || planta.Description}
+              </strong>
             </div>
 
             <div className="resultado-grupo">
@@ -173,7 +192,10 @@ export default function Resultado() {
               </span>
 
               <strong>
-                {planta.susceptible_animal_species?.join(", ")}
+                {(
+                  planta.susceptible_animal_species ||
+                  planta.SusceptibleAnimalSpecies
+                )?.join(", ")}
               </strong>
             </div>
 
@@ -185,14 +207,19 @@ export default function Resultado() {
 
             <div className="resultado-grupo">
               <span>Riscos para os seres humanos</span>
-              <strong>{planta.human_risks}</strong>
+              <strong>
+                {planta.human_risks || planta.HumanRisks}
+              </strong>
             </div>
 
             <div className="resultado-grupo">
               <span>Sintomas comuns</span>
 
               <strong>
-                {planta.common_symptoms?.join(", ")}
+                {(
+                  planta.common_symptoms ||
+                  planta.CommonSymptoms
+                )?.join(", ")}
               </strong>
             </div>
 
@@ -200,7 +227,10 @@ export default function Resultado() {
               <span>Ações recomendadas</span>
 
               <strong>
-                {planta.recommended_actions?.join(", ")}
+                {(
+                  planta.recommended_actions ||
+                  planta.RecommendedActions
+                )?.join(", ")}
               </strong>
             </div>
 
