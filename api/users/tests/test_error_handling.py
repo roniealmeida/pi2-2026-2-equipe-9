@@ -1,12 +1,23 @@
-from unittest.mock import patch
 
 from django.urls import reverse
 from rest_framework import status
-from rest_framework.exceptions import NotFound, PermissionDenied
 from rest_framework.test import APITestCase
+
+from users.models.user_model import User
 
 
 class UserErrorHandlingTests(APITestCase):
+
+    def setUp(self):
+        self.user = User.objects.create(
+            name="Usuario Teste",
+            phone="+5588999999999",
+            password_hash="hash_teste",
+            is_admin=False,
+            status=1
+        )
+
+        self.client.force_authenticate(user=self.user)
 
     def test_listar_usuarios_sem_requested_by_retorna_400(self):
         response = self.client.get(
@@ -23,18 +34,10 @@ class UserErrorHandlingTests(APITestCase):
             {"message": "requested_by é obrigatório"}
         )
 
-    @patch("users.views.UserService.list_users")
-    def test_listar_usuarios_sem_permissao_retorna_403(
-        self,
-        mock_list_users
-    ):
-        mock_list_users.side_effect = PermissionDenied(
-            "Apenas administradores podem realizar esta operação"
-        )
-
+    def test_listar_usuarios_sem_permissao_retorna_403(self):
         response = self.client.get(
             reverse("users-list"),
-            {"requested_by": 2}
+            {"requested_by": self.user.id}
         )
 
         self.assertEqual(
@@ -42,20 +45,12 @@ class UserErrorHandlingTests(APITestCase):
             status.HTTP_403_FORBIDDEN
         )
 
-        self.assertIn(
-            "Apenas administradores",
-            str(response.data)
-        )
+        self.assertEqual(
+    response.data,
+    {"message": "Apenas administradores podem realizar esta operação."}
+)
 
-    @patch("users.views.UserService.list_users")
-    def test_solicitante_inexistente_retorna_404(
-        self,
-        mock_list_users
-    ):
-        mock_list_users.side_effect = NotFound(
-            "Usuário solicitante não encontrado"
-        )
-
+    def test_solicitante_diferente_do_autenticado_retorna_403(self):
         response = self.client.get(
             reverse("users-list"),
             {"requested_by": 999}
@@ -63,23 +58,15 @@ class UserErrorHandlingTests(APITestCase):
 
         self.assertEqual(
             response.status_code,
-            status.HTTP_404_NOT_FOUND
+            status.HTTP_403_FORBIDDEN
         )
 
-        self.assertIn(
-            "Usuário solicitante não encontrado",
-            str(response.data)
+        self.assertEqual(
+            response.data,
+            {"message": "Você não tem permissão para realizar esta operação."}
         )
 
-    @patch("users.views.UserService.update_user")
-    def test_atualizar_usuario_inexistente_retorna_404(
-        self,
-        mock_update_user
-    ):
-        mock_update_user.side_effect = NotFound(
-            "Usuário não encontrado"
-        )
-
+    def test_atualizar_perfil_de_outro_usuario_retorna_403(self):
         response = self.client.patch(
             reverse("users-update-profile"),
             {"user_id": 999},
@@ -88,10 +75,10 @@ class UserErrorHandlingTests(APITestCase):
 
         self.assertEqual(
             response.status_code,
-            status.HTTP_404_NOT_FOUND
+            status.HTTP_403_FORBIDDEN
         )
 
-        self.assertIn(
-            "Usuário não encontrado",
-            str(response.data)
+        self.assertEqual(
+            response.data,
+            {"message": "Você não tem permissão para alterar este perfil."}
         )

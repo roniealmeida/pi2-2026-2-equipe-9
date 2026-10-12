@@ -21,6 +21,8 @@ class AnalysisHistoryIntegrationTests(APITestCase):
             status=1
         )
 
+        self.client.force_authenticate(user=self.user)
+
     def criar_analise(self, user=None, result_type=0, nome="Planta Teste"):
         usuario = user if user is not None else self.user
 
@@ -113,7 +115,7 @@ class AnalysisHistoryIntegrationTests(APITestCase):
 
         self.assertEqual(
             response.status_code,
-            status.HTTP_404_NOT_FOUND,
+            status.HTTP_403_FORBIDDEN,
             response.data
         )
 

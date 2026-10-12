@@ -1,15 +1,17 @@
+
 from unittest.mock import patch
 
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from users.models.user_model import User
+
 
 class UserMockRoutesTests(APITestCase):
 
     @patch("users.views.UserService.create_user")
     def test_cadastrar_usuario(self, mock_create_user):
-
         mock_create_user.return_value = {
             "user": {
                 "id": 1,
@@ -59,7 +61,6 @@ class UserMockRoutesTests(APITestCase):
 
     @patch("users.views.UserService.login")
     def test_login(self, mock_login):
-
         mock_login.return_value = {
             "token": "jwt_mock_analisaai",
             "user": {
@@ -102,11 +103,20 @@ class UserMockRoutesTests(APITestCase):
 
     @patch("users.views.UserService.update_user")
     def test_atualizar_perfil(self, mock_update_user):
+        usuario = User.objects.create(
+            name="João da Silva",
+            phone="+5588999999999",
+            password_hash="hash_teste",
+            is_admin=False,
+            status=1
+        )
+
+        self.client.force_authenticate(user=usuario)
 
         mock_update_user.return_value = {
             "message": "Dados cadastrais atualizados com sucesso.",
             "user": {
-                "id": 1,
+                "id": usuario.id,
                 "name": "João da Silva",
                 "phone": "+5588988888888",
                 "is_admin": False,
@@ -121,7 +131,7 @@ class UserMockRoutesTests(APITestCase):
         }
 
         dados = {
-            "user_id": 1,
+            "user_id": usuario.id,
             "name": "João da Silva",
             "phone": "+55 88 98888-8888",
             "farm_name": "Nova Fazenda",
@@ -138,7 +148,8 @@ class UserMockRoutesTests(APITestCase):
 
         self.assertEqual(
             response.status_code,
-            status.HTTP_200_OK
+            status.HTTP_200_OK,
+            response.data
         )
 
         self.assertEqual(

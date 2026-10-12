@@ -4,6 +4,7 @@ from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from drf_spectacular.types import OpenApiTypes
+from rest_framework.permissions import IsAuthenticated
 
 from analysis.serializers.analysis_serializer import AnalysisSerializer
 from analysis.serializers.response_serializers import (
@@ -22,6 +23,12 @@ class PlantAnalysisViewSet(viewsets.ViewSet):
     Endpoints para análise de imagens de plantas e histórico de análises.
     """
 
+    def get_permissions(self):
+        if self.action in ["list", "retrieve", "all_analysis"]:
+            return [IsAuthenticated()]
+
+        return super().get_permissions()
+    
     @extend_schema(
         summary="Criar Análise de Planta",
         description="Realiza análise de uma imagem de planta e retorna diagnóstico com base em IA",
@@ -83,7 +90,7 @@ class PlantAnalysisViewSet(viewsets.ViewSet):
         Parâmetro obrigatório: userId (query parameter)
         """
         user_id = request.query_params.get("userId")
-
+        
         if not user_id:
             return Response(
                 {"message": "userId é obrigatório"},
@@ -97,7 +104,13 @@ class PlantAnalysisViewSet(viewsets.ViewSet):
                 {"message": "userId deve ser um número inteiro válido"},
                 status=status.HTTP_400_BAD_REQUEST
             )
-
+        
+        if user_id != request.user.id:
+            return Response(
+                {"message": "Você não tem permissão para consultar este histórico."},
+                status=status.HTTP_403_FORBIDDEN
+            )
+            
         result = PlantAnalysisService.get_history(
             user_id,
             request=request
@@ -151,7 +164,11 @@ class PlantAnalysisViewSet(viewsets.ViewSet):
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
-
+        if user_id != request.user.id:
+            return Response(
+                {"message": "Você não tem permissão para consultar esta análise."},
+                status=status.HTTP_403_FORBIDDEN
+            )
         result = PlantAnalysisService.get_details(
             search_request_id,
             user_id,
@@ -234,7 +251,17 @@ class PlantAnalysisViewSet(viewsets.ViewSet):
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
+        if requested_by != request.user.id:
+            return Response(
+                {"message": "Você não tem permissão para realizar esta operação."},
+                status=status.HTTP_403_FORBIDDEN
+            )
 
+        if not request.user.is_admin:
+            return Response(
+                {"message": "Apenas administradores podem realizar esta operação."},
+                status=status.HTTP_403_FORBIDDEN
+            )
         result = PlantAnalysisService.get_all_analysis(
             requested_by
         )

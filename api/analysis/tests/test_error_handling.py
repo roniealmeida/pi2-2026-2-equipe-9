@@ -4,10 +4,19 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.exceptions import NotFound, PermissionDenied
 from rest_framework.test import APITestCase
-
+from users.models.user_model import User
 
 class AnalysisErrorHandlingTests(APITestCase):
+    def setUp(self):
+        self.user = User.objects.create(
+            name="Usuario Teste",
+            phone="+5588999999999",
+            password_hash="hash_teste",
+            is_admin=False,
+            status=1
+        )
 
+        self.client.force_authenticate(user=self.user)
     def test_historico_sem_user_id_retorna_400(self):
         response = self.client.get(
             reverse("analysis-list")
@@ -80,34 +89,27 @@ class AnalysisErrorHandlingTests(APITestCase):
             status.HTTP_403_FORBIDDEN
         )
 
-        self.assertIn(
-            "Apenas administradores",
-            str(response.data)
-        )
+        self.assertEqual(
+            response.data,
+            {"message": "Você não tem permissão para realizar esta operação."}
+)
 
-    @patch("analysis.views.PlantAnalysisService.get_history")
-    def test_historico_usuario_inexistente_retorna_404(
-        self,
-        mock_history
-    ):
-        mock_history.side_effect = NotFound(
-            "Usuário não encontrado"
-        )
 
+    def test_historico_outro_usuario_retorna_403(self):
         response = self.client.get(
-            reverse("analysis-list"),
-            {"userId": 999}
-        )
+        reverse("analysis-list"),
+        {"userId": 999}
+    )
 
         self.assertEqual(
-            response.status_code,
-            status.HTTP_404_NOT_FOUND
-        )
+        response.status_code,
+        status.HTTP_403_FORBIDDEN
+    )
 
-        self.assertIn(
-            "Usuário não encontrado",
-            str(response.data)
-        )
+        self.assertEqual(
+        response.data,
+        {"message": "Você não tem permissão para consultar este histórico."}
+    )
 
     @patch("analysis.views.PlantAnalysisService.get_details")
     def test_analise_inexistente_retorna_404(

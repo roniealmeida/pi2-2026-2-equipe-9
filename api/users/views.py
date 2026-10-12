@@ -1,6 +1,7 @@
+
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema
 
@@ -24,14 +25,10 @@ class UserViewSet(viewsets.ViewSet):
     """
 
     def get_permissions(self):
-
-        if self.action in [
-            "login",
-            "create"
-        ]:
+        if self.action in ["login", "create"]:
             return [AllowAny()]
 
-        return super().get_permissions()
+        return [IsAuthenticated()]
 
     @extend_schema(
         summary="Fazer Login",
@@ -46,16 +43,10 @@ class UserViewSet(viewsets.ViewSet):
     @action(detail=False, methods=["post"])
     def login(self, request):
 
-        serializer = LoginSerializer(
-            data=request.data
-        )
-
-        serializer.is_valid(
-            raise_exception=True
-        )
+        serializer = LoginSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
         dto = serializer.to_dto()
-
         result = UserService.login(dto)
 
         return Response(
@@ -74,16 +65,10 @@ class UserViewSet(viewsets.ViewSet):
     )
     def create(self, request):
 
-        serializer = RegisterUserSerializer(
-            data=request.data
-        )
-
-        serializer.is_valid(
-            raise_exception=True
-        )
+        serializer = RegisterUserSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
         dto = serializer.to_dto()
-
         result = UserService.create_user(dto)
 
         return Response(
@@ -97,7 +82,8 @@ class UserViewSet(viewsets.ViewSet):
         request=RegisterAdminSerializer,
         responses={
             201: RegisterUserResponseSerializer,
-            400: {"description": "Dados inválidos"}
+            400: {"description": "Dados inválidos"},
+            403: {"description": "Acesso negado"}
         }
     )
     @action(
@@ -107,15 +93,22 @@ class UserViewSet(viewsets.ViewSet):
     )
     def create_admin(self, request):
 
-        serializer = RegisterAdminSerializer(
-            data=request.data
-        )
-
-        serializer.is_valid(
-            raise_exception=True
-        )
+        serializer = RegisterAdminSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
         dto = serializer.to_dto()
+
+        if dto.requested_by != request.user.id:
+            return Response(
+                {"message": "Você não tem permissão para realizar esta operação."},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        if not request.user.is_admin:
+            return Response(
+                {"message": "Apenas administradores podem criar administradores."},
+                status=status.HTTP_403_FORBIDDEN
+            )
 
         result = UserService.create_admin(dto)
 
@@ -134,9 +127,7 @@ class UserViewSet(viewsets.ViewSet):
     )
     def list_admins(self, request):
 
-        requested_by = request.query_params.get(
-            "requested_by"
-        )
+        requested_by = request.query_params.get("requested_by")
 
         if not requested_by:
             return Response(
@@ -144,9 +135,19 @@ class UserViewSet(viewsets.ViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        result = UserService.list_admins(
-            requested_by
-        )
+        if str(requested_by) != str(request.user.id):
+            return Response(
+                {"message": "Você não tem permissão para realizar esta operação."},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        if not request.user.is_admin:
+            return Response(
+                {"message": "Apenas administradores podem realizar esta operação."},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        result = UserService.list_admins(requested_by)
 
         return Response(
             result,
@@ -158,9 +159,7 @@ class UserViewSet(viewsets.ViewSet):
     )
     def list(self, request):
 
-        requested_by = request.query_params.get(
-            "requested_by"
-        )
+        requested_by = request.query_params.get("requested_by")
 
         if not requested_by:
             return Response(
@@ -168,9 +167,19 @@ class UserViewSet(viewsets.ViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        result = UserService.list_users(
-            requested_by
-        )
+        if str(requested_by) != str(request.user.id):
+            return Response(
+                {"message": "Você não tem permissão para realizar esta operação."},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        if not request.user.is_admin:
+            return Response(
+                {"message": "Apenas administradores podem realizar esta operação."},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        result = UserService.list_users(requested_by)
 
         return Response(
             result,
@@ -188,19 +197,24 @@ class UserViewSet(viewsets.ViewSet):
     )
     def change_status(self, request):
 
-        serializer = ChangeStatusSerializer(
-            data=request.data
-        )
-
-        serializer.is_valid(
-            raise_exception=True
-        )
+        serializer = ChangeStatusSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
         dto = serializer.to_dto()
 
-        result = UserService.change_status(
-            dto
-        )
+        if dto.requested_by != request.user.id:
+            return Response(
+                {"message": "Você não tem permissão para realizar esta operação."},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        if not request.user.is_admin:
+            return Response(
+                {"message": "Apenas administradores podem realizar esta operação."},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        result = UserService.change_status(dto)
 
         return Response(
             result,
@@ -214,6 +228,7 @@ class UserViewSet(viewsets.ViewSet):
         responses={
             200: RegisterUserResponseSerializer,
             400: {"description": "Dados inválidos"},
+            403: {"description": "Acesso negado"},
             404: {"description": "Usuário não encontrado"}
         }
     )
@@ -222,20 +237,12 @@ class UserViewSet(viewsets.ViewSet):
         methods=["patch"],
         url_path="profile"
     )
+    @action(detail=False, methods=["patch"], url_path="profile")
     def update_profile(self, request):
         """
-        Atualiza os dados cadastrais do usuário.
-
-        Permite atualização parcial ou completa de:
-        - Nome do usuário
-        - Telefone
-        - Nome da fazenda
-        - Estado
-        - Localidade
-        - Município
-
-        Parâmetro obrigatório: user_id (no body da requisição)
+        Atualiza os dados cadastrais do usuário autenticado.
         """
+
         serializer = UpdateUserSerializer(
             data=request.data,
             partial=True
@@ -244,6 +251,18 @@ class UserViewSet(viewsets.ViewSet):
         serializer.is_valid(raise_exception=True)
 
         dto = serializer.to_dto()
+
+        if dto.user_id is None:
+            return Response(
+                {"message": "user_id é obrigatório."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        if str(dto.user_id) != str(request.user.id):
+            return Response(
+                {"message": "Você não tem permissão para alterar este perfil."},
+                status=status.HTTP_403_FORBIDDEN
+            )
 
         result = UserService.update_user(dto)
 
