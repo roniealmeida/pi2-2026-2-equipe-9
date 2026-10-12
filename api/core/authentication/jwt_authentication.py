@@ -10,6 +10,8 @@ from users.models.user_model import User
 
 
 class JwtAuthentication(BaseAuthentication):
+    def authenticate_header(self, request):
+        return "Bearer"
 
     def authenticate(self, request):
 

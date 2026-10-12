@@ -237,7 +237,6 @@ class UserViewSet(viewsets.ViewSet):
         methods=["patch"],
         url_path="profile"
     )
-    @action(detail=False, methods=["patch"], url_path="profile")
     def update_profile(self, request):
         """
         Atualiza os dados cadastrais do usuário autenticado.
