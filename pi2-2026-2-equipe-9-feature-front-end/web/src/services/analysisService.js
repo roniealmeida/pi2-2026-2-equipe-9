@@ -2,23 +2,29 @@ import api from "../api/api";
 
 export const analysisService = {
   sendAnalysisImage: async (base64Image, userId) => {
+    // Garante que a imagem mantenha o prefixo data:image/... se não o tiver
+    let formattedBase64 = base64Image;
+    if (typeof base64Image === "string" && !base64Image.startsWith("data:image")) {
+      formattedBase64 = `data:image/jpeg;base64,${base64Image}`;
+    }
+
     const response = await api.post("/analysis/", {
-      image: base64Image,
-      user_id: userId,
+      image: formattedBase64,
+      userId: userId,
     });
     return response.data;
   },
 
   getUserHistory: async (userId) => {
     const response = await api.get(`/analysis/`, {
-      params: { user_id: userId },
+      params: { userId: userId },
     });
     return response.data;
   },
 
   getAnalysisDetails: async (id, userId) => {
     const response = await api.get(`/analysis/${id}/`, {
-      params: { user_id: userId },
+      params: { userId: userId },
     });
     return response.data;
   },
@@ -30,3 +36,5 @@ export const analysisService = {
     return response.data;
   },
 };
+
+export default analysisService;

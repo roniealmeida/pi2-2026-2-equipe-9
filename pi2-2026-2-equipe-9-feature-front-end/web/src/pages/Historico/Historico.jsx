@@ -8,8 +8,7 @@ import Loading from "../../components/Loading";
 import useAnalysisStore from "../../stores/analysisStore";
 import useAuthStore from "../../stores/authStore";
 
-import logoEscura from "../../assets/images/Logo-AnalisaAI-Escura.png";
-import logoSimbolo from "../../assets/images/Logo-AnalisaAI-Simbolo.png";
+import logoClara from "../../assets/images/Logo-AnalisaAI.png";
 
 import "./Historico.css";
 
@@ -37,7 +36,6 @@ export default function Historico() {
     <div className="historico-page">
 
       {/* CABEÇALHO */}
-
       <header className="historico-header">
         <div className="historico-cabecalho">
 
@@ -55,17 +53,13 @@ export default function Historico() {
           <div
             className="historico-logo"
             onClick={() => navigate("/home")}
+            style={{ cursor: "pointer" }}
           >
             <img
-              className="historico-logo-simbolo"
-              src={logoSimbolo}
-              alt=""
-            />
-
-            <img
               className="historico-logo-texto"
-              src={logoEscura}
+              src={logoClara}
               alt="AnalisaAI"
+              style={{ height: "30px", width: "auto" }}
             />
           </div>
 
@@ -73,13 +67,11 @@ export default function Historico() {
       </header>
 
       {/* CONTEÚDO */}
-
       <main className="historico-conteudo">
 
         <h1>Histórico</h1>
 
         {/* CARREGAMENTO */}
-
         {loading && (
           <div className="historico-status">
             <Loading />
@@ -87,7 +79,6 @@ export default function Historico() {
         )}
 
         {/* ERRO */}
-
         {!loading && error && (
           <div className="historico-status historico-erro">
             <p>Erro ao carregar histórico: {error}</p>
@@ -95,7 +86,6 @@ export default function Historico() {
         )}
 
         {/* HISTÓRICO VAZIO */}
-
         {!loading && !error && analysisHistory.length === 0 && (
           <div className="historico-status">
             <p>Nenhuma análise realizada ainda</p>
@@ -103,7 +93,6 @@ export default function Historico() {
         )}
 
         {/* LISTAGEM */}
-
         {!loading && !error && analysisHistory.length > 0 && (
           <div className="historico-listagem">
 

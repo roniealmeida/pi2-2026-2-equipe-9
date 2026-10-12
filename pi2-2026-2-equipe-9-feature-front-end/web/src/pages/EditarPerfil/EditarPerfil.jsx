@@ -4,8 +4,7 @@ import api from "../../api/api";
 import useAuthStore from "../../stores/authStore";
 import MenuLateral from "../MenuLateral/MenuLateral";
 
-import logoEscura from "../../assets/images/Logo-AnalisaAI-Escura.png";
-import logoSimbolo from "../../assets/images/Logo-AnalisaAI-Simbolo.png";
+import logoClara from "../../assets/images/Logo-AnalisaAI.png";
 import { BsPencil, BsCheck } from "react-icons/bs";
 
 import "./EditarPerfil.css";
@@ -160,7 +159,7 @@ export default function EditarPerfil() {
 
   return (
     <div className="home-page modo-confirmacao">
-      {/* CABEÇALHO IDÊNTICO À F04 */}
+      {/* CABEÇALHO */}
       <header id="cabecalho" className="cabecalho-confirmacao">
         <div className="cabecalho-esquerda">
           <button
@@ -180,14 +179,10 @@ export default function EditarPerfil() {
             style={{ cursor: "pointer" }}
           >
             <img
-              className="logo-simbolo"
-              src={logoSimbolo}
-              alt=""
-            />
-            <img
               className="logo-texto"
-              src={logoEscura}
+              src={logoClara}
               alt="AnalisaAI"
+              style={{ height: "30px", width: "auto" }}
             />
           </div>
         </div>

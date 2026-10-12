@@ -6,10 +6,8 @@ import "./Home.css";
 import MenuLateral from "../MenuLateral/MenuLateral";
 import Loading from "../../components/Loading";
 
-// Imagens do projeto
+// Imagem oficial da logo
 import logo from "../../assets/images/Logo-AnalisaAI.png";
-import logoEscura from "../../assets/images/Logo-AnalisaAI-Escura.png";
-import logoSimbolo from "../../assets/images/Logo-AnalisaAI-Simbolo.png";
 import iconMenu from "../../assets/images/icon-menu.png";
 import iconPerson from "../../assets/images/icon-person.png";
 import iconSelecionar from "../../assets/images/icon-selecionar.png";
@@ -108,16 +106,14 @@ export default function Home() {
                 <span></span>
               </button>
 
-              <div className="logo-confirmacao">
-                <img
-                  className="logo-simbolo"
-                  src={logoSimbolo}
-                  alt=""
-                />
-
+              <div
+                className="logo-confirmacao"
+                onClick={() => navigate("/home")}
+                style={{ cursor: "pointer" }}
+              >
                 <img
                   className="logo-texto"
-                  src={logoEscura}
+                  src={logo}
                   alt="AnalisaAI"
                 />
               </div>
@@ -136,12 +132,16 @@ export default function Home() {
                 id="logo"
                 src={logo}
                 alt="AnalisaAI"
+                onClick={() => navigate("/home")}
+                style={{ cursor: "pointer" }}
               />
 
               <img
                 id="icon-person"
                 src={iconPerson}
                 alt="Perfil"
+                onClick={() => navigate("/editar-perfil")}
+                style={{ cursor: "pointer" }}
               />
             </>
           )}
@@ -233,7 +233,7 @@ export default function Home() {
 
                 </div>
               ) : (
-                /* ==================== F04 - CONFIRMAÇÃO ==================== */
+                /* ==================== CONFIRMAÇÃO ==================== */
 
                 <div id="container-confirmacao">
 

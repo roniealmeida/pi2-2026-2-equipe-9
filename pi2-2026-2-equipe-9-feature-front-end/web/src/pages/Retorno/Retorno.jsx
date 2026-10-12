@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import MenuLateral from "../MenuLateral/MenuLateral";
 
-import logoEscura from "../../assets/images/Logo-AnalisaAI-Escura.png";
-import logoSimbolo from "../../assets/images/Logo-AnalisaAI-Simbolo.png";
+import logoClara from "../../assets/images/Logo-AnalisaAI.png";
 import fotoTeste from "../../assets/images/fototeste.jpeg";
 
 import "./Retorno.css";
@@ -40,14 +39,8 @@ export default function Retorno() {
               onClick={() => navigate("/home")}
             >
               <img
-                className="retorno-logo-simbolo"
-                src={logoSimbolo}
-                alt=""
-              />
-
-              <img
                 className="retorno-logo-texto"
-                src={logoEscura}
+                src={logoClara}
                 alt="AnalisaAI"
               />
             </div>
@@ -95,14 +88,8 @@ export default function Retorno() {
             onClick={() => navigate("/home")}
           >
             <img
-              className="retorno-logo-simbolo"
-              src={logoSimbolo}
-              alt=""
-            />
-
-            <img
               className="retorno-logo-texto"
-              src={logoEscura}
+              src={logoClara}
               alt="AnalisaAI"
             />
           </div>
