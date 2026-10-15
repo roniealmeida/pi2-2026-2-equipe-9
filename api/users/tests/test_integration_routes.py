@@ -73,6 +73,35 @@ class UserIntegrationRoutesTests(APITestCase):
         self.assertEqual(User.objects.count(), 0)
         self.assertEqual(Farm.objects.count(), 0)
 
+    def test_cadastrar_usuario_com_senha_muito_curta(self):
+        dados = {
+            "name": "Joao da Silva",
+            "accept_terms": True,
+            "phone": "+5588999999999",
+            "password": "123",
+            "confirm_password": "123",
+            "farm": {
+                "name": "Fazenda Boa Esperanca",
+                "state": "Ceara",
+                "location": "Zona Rural",
+                "municipality": "Crateus"
+            }
+        }
+
+        response = self.client.post(
+            reverse("users-list"),
+            dados,
+            format="json"
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_400_BAD_REQUEST,
+            response.data
+        )
+        self.assertEqual(User.objects.count(), 0)
+        self.assertEqual(Farm.objects.count(), 0)
+
     def test_cadastrar_usuario_com_senhas_diferentes(self):
         dados = {
             "name": "Joao da Silva",
@@ -595,7 +624,7 @@ class UserIntegrationRoutesTests(APITestCase):
             response.data
         )
         self.assertEqual(User.objects.count(), 0)
-        
+
     def test_cadastrar_administrador_com_sucesso(self):
         admin = User.objects.create(
             name="Administrador Principal",
@@ -700,6 +729,37 @@ class UserIntegrationRoutesTests(APITestCase):
             dados,
             format="json"
         )
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_400_BAD_REQUEST,
+            response.data
+        )
+        self.assertEqual(User.objects.count(), 1)
+
+    def test_cadastrar_administrador_com_senha_muito_curta(self):
+        admin = User.objects.create(
+            name="Administrador Principal",
+            phone="+5588999999999",
+            password_hash=make_password("123456"),
+            is_admin=True,
+            status=1
+        )
+
+        dados = {
+            "requested_by": admin.id,
+            "name": "Novo Administrador",
+            "phone": "+5588988888888",
+            "password": "123",
+            "confirm_password": "123"
+        }
+
+        self.client.force_authenticate(user=admin)
+        response = self.client.post(
+            "/api/users/admins/",
+            dados,
+            format="json"
+        )
+
         self.assertEqual(
             response.status_code,
             status.HTTP_400_BAD_REQUEST,
