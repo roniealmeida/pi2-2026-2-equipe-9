@@ -11,6 +11,7 @@ class UserIntegrationRoutesTests(APITestCase):
     def test_cadastrar_usuario_no_banco(self):
         dados = {
             "name": "Joao da Silva",
+            "accept_terms": True,
             "phone": "+5588999999999",
             "password": "123456",
             "confirm_password": "123456",
@@ -42,6 +43,35 @@ class UserIntegrationRoutesTests(APITestCase):
             check_password("123456", user.password_hash)
         )
         self.assertEqual(response.data["user"]["id"], user.id)
+
+    def test_cadastrar_usuario_sem_enviar_aceite_termos(self):
+        dados = {
+            "name": "Joao da Silva",
+            "phone": "+5588999999999",
+            "password": "123456",
+            "confirm_password": "123456",
+            "farm": {
+                "name": "Fazenda Boa Esperanca",
+                "state": "Ceara",
+                "location": "Zona Rural",
+                "municipality": "Crateus"
+            }
+        }
+
+        response = self.client.post(
+            reverse("users-list"),
+            dados,
+            format="json"
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_400_BAD_REQUEST,
+            response.data
+        )
+        self.assertIn("accept_terms", response.data)
+        self.assertEqual(User.objects.count(), 0)
+        self.assertEqual(Farm.objects.count(), 0)
 
     def test_cadastrar_usuario_com_senhas_diferentes(self):
         dados = {

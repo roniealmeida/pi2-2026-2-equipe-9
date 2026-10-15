@@ -16,7 +16,10 @@ class RegisterUserSerializer(serializers.Serializer):
         required=True,
         help_text="Nome completo do usuário"
     )
-
+    accept_terms = serializers.BooleanField(
+        required=True,
+        help_text="Confirma o aceite dos Termos de Uso e da Política de Privacidade"
+    ) 
     phone = PhoneNumberField(
         region="BR",
         required=True,
@@ -42,7 +45,13 @@ class RegisterUserSerializer(serializers.Serializer):
     )
 
     def validate(self, data):
-
+        if not data["accept_terms"]:
+            raise serializers.ValidationError(
+                {
+                    "accept_terms":
+                    "É necessário aceitar os Termos de Uso e a Política de Privacidade."
+                }
+            )
         if data["password"] != data["confirm_password"]:
             raise serializers.ValidationError(
                 {

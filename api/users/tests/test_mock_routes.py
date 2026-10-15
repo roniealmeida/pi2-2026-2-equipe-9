@@ -30,6 +30,7 @@ class UserMockRoutesTests(APITestCase):
 
         dados = {
             "name": "João da Silva",
+            "accept_terms": True,
             "phone": "+55 88 99999-9999",
             "password": "123456",
             "confirm_password": "123456",
