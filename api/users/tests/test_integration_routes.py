@@ -574,6 +574,28 @@ class UserIntegrationRoutesTests(APITestCase):
         self.assertEqual(response.data, [])
         self.assertEqual(User.objects.count(), 1)
 
+    def test_cadastrar_administrador_sem_autenticacao(self):
+        dados = {
+            "requested_by": 1,
+            "name": "Novo Administrador",
+            "phone": "+5588988888888",
+            "password": "123456",
+            "confirm_password": "123456"
+        }
+
+        response = self.client.post(
+            "/api/users/admins/",
+            dados,
+            format="json"
+        )
+
+        self.assertIn(
+            response.status_code,
+            [status.HTTP_401_UNAUTHORIZED, status.HTTP_403_FORBIDDEN],
+            response.data
+        )
+        self.assertEqual(User.objects.count(), 0)
+        
     def test_cadastrar_administrador_com_sucesso(self):
         admin = User.objects.create(
             name="Administrador Principal",
