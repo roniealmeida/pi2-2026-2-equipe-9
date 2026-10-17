@@ -35,74 +35,52 @@ body,
 }
 
 body {
-    background: linear-gradient(90deg, #000000, #00724a);
+    background: linear-gradient(135deg, #021a12 0%, #004d32 100%);
     min-height: 100vh;
     overflow-x: hidden;
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
 }
 
 /* ==================== PÁGINA ==================== */
 
 .home-page {
     min-height: 100vh;
+    background: linear-gradient(135deg, #021a12 0%, #004d32 100%);
 }
-
-/* Fundo claro da F04 */
 
 .home-page.modo-confirmacao {
     min-height: 100vh;
-
-    background: linear-gradient(
-        180deg,
-        #ffffff 0%,
-        #f8fffc 25%,
-        #e8f8f1 50%,
-        #ccebdc 75%,
-        #a9d9c3 100%
-    );
-
+    background: linear-gradient(135deg, #021a12 0%, #004d32 100%);
     position: relative;
     isolation: isolate;
 }
 
 .home-page.modo-confirmacao::before {
     content: "";
-
     position: fixed;
     inset: 0;
-
     width: 100vw;
     height: 100vh;
-
-    background: linear-gradient(
-        180deg,
-        #ffffff 0%,
-        #f8fffc 25%,
-        #e8f8f1 50%,
-        #ccebdc 75%,
-        #a9d9c3 100%
-    );
-
+    background: linear-gradient(135deg, #021a12 0%, #004d32 100%);
     z-index: -1;
     pointer-events: none;
 }
 
-/* ==================== CABEÇALHO ==================== */
+/* ==================== CABEÇALHO GERAL ==================== */
 
 #cabecalho {
     display: flex;
     align-items: center;
     position: relative;
-
-    border: 1px solid #ffffff;
+    border: 1px solid #009963;
     border-radius: 30px;
-
     margin: 20px;
-    padding: 0 10px;
-
+    padding: 0 14px;
     min-height: 60px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
 }
-
-/* ==================== CABEÇALHO DA HOME ==================== */
 
 .cabecalho-home {
     justify-content: space-between;
@@ -112,40 +90,30 @@ body {
 #icon-person {
     width: 60px;
     height: 60px;
-
     padding: 15px;
-
     cursor: pointer;
     flex-shrink: 0;
 }
 
 .cabecalho-home #logo {
     position: absolute;
-
     left: 50%;
     transform: translateX(-50%);
-
     width: clamp(90px, 18vw, 220px);
     height: auto;
-
     margin: 0;
-
     pointer-events: none;
 }
 
-/* ==================== CABEÇALHO DA F04 ==================== */
+/* ==================== CABEÇALHO MODO CONFIRMAÇÃO ==================== */
 
 .modo-confirmacao #cabecalho {
     min-height: 52px;
-
     margin: 20px 28px;
-
     padding: 0 14px;
-
-    border: 1px solid #8c9994;
+    border: 1px solid #009963;
     border-radius: 28px;
-
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .cabecalho-confirmacao {
@@ -155,722 +123,380 @@ body {
 .cabecalho-esquerda {
     display: flex;
     align-items: center;
-
     gap: 12px;
 }
-
-/* Hambúrguer escuro */
 
 .botao-menu-confirmacao {
     width: 26px;
     height: 26px;
-
     display: flex;
     flex-direction: column;
-
     align-items: center;
     justify-content: center;
-
     gap: 4px;
-
     padding: 0;
-
     background: transparent;
     border: none;
-
     cursor: pointer;
 }
 
 .botao-menu-confirmacao span {
     display: block;
-
     width: 18px;
     height: 2px;
-
-    background-color: #26332e;
-
+    background-color: #ffffff;
     border-radius: 5px;
 }
-
-/* Logo da F04 */
 
 .logo-confirmacao {
     display: flex;
     align-items: center;
-
-    gap: 5px;
-
-    height: 32px;
+    height: 30px;
 }
 
-.logo-simbolo {
-    width: 25px;
-    height: 25px;
-
+.logo-confirmacao .logo-texto {
+    height: 30px !important;
+    width: auto !important;
     display: block;
-
     object-fit: contain;
 }
 
-.logo-texto {
-    width: 76px;
-    height: auto;
-
-    display: block;
-
-    object-fit: contain;
-}
-
-/* ==================== CONTEÚDO ==================== */
+/* ==================== CONTEÚDO PRINCIPAL (INICIAL) ==================== */
 
 #corpo h2 {
     font-family: 'Montserrat', sans-serif;
-
     text-align: center;
-
     font-size: clamp(18px, 4vw, 25px);
-
-    padding-top: 80px;
-
+    padding-top: 60px;
     color: #ffffff;
-
-    font-weight: 500;
-
+    font-weight: 600;
     width: 90%;
     max-width: 700px;
-
     margin: 0 auto;
 }
 
 #corpo h3 {
     font-family: 'Montserrat', sans-serif;
-
     font-weight: 300;
-
     text-align: center;
-
     font-size: clamp(13px, 3vw, 17px);
-
-    color: #ffffff;
-
+    color: #e2e8f0;
     width: 90%;
-
-    margin: 0 auto;
+    margin: 10px auto 0 auto;
 }
-
-/* ==================== SELEÇÃO ==================== */
 
 #selecionar {
     display: flex;
     flex-direction: column;
-
     align-items: center;
     justify-content: center;
-
-    margin: 40px auto;
-
+    margin: 35px auto;
     gap: 20px;
 }
 
 #photo-selection {
     width: clamp(70px, 15vw, 100px);
     height: auto;
-
-    padding: 20px;
+    padding: 10px;
 }
 
 #arquivo {
     background-color: #04724b;
-
     width: 85%;
-    max-width: 300px;
-
-    min-height: 60px;
-
+    max-width: 320px;
+    min-height: 55px;
     display: flex;
-
     justify-content: center;
     align-items: center;
-
-    border-radius: 40px;
-
-    border: 2px solid #96ffda;
-
+    border-radius: 30px;
+    border: 2px solid #009963;
     color: #ffffff;
-
     text-align: center;
-
     font-family: 'Montserrat', sans-serif;
-
-    font-size: clamp(16px, 4vw, 25px);
-
-    font-weight: 400;
-
+    font-size: clamp(16px, 4vw, 20px);
+    font-weight: 500;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#arquivo:hover {
+    background-color: #009963;
+    transform: scale(1.03);
 }
 
 #recomendacao {
     display: flex;
     flex-direction: row;
-
-    gap: 50px;
-
+    gap: 40px;
     justify-content: center;
-
     max-width: 650px;
-
-    margin: 40px auto 0 auto;
-
+    margin: 30px auto 0 auto;
     text-align: left;
 }
 
 .bloco {
     flex: 1;
-
     margin: 0;
-
     padding-left: 20px;
-
     list-style-type: disc;
 }
 
 .bloco li {
     color: #ffffff;
-
-    margin-bottom: 15px;
-
+    margin-bottom: 12px;
     font-size: 14px;
 }
 
-/* ==================== MENU LATERAL ==================== */
-
-#menu-lateral {
-    position: fixed;
-
-    top: 0;
-    left: 0;
-
-    width: min(80vw, 280px);
-    height: 100vh;
-
-    background-color: #1e3830;
-
-    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
-
-    z-index: 1000;
-
-    display: flex;
-    flex-direction: column;
-
-    font-family: 'Montserrat', sans-serif;
-
-    transition: transform 0.4s ease-in-out;
-}
-
-.menu-fechado {
-    transform: translateX(-100%);
-}
-
-.menu-aberto {
-    transform: translateX(0);
-}
-
-.menu-header {
-    display: flex;
-
-    justify-content: space-between;
-    align-items: center;
-
-    padding: 30px 20px 20px;
-}
-
-.menu-logo {
-    width: 110px;
-    height: auto;
-}
-
-.menu-fechar {
-    width: 20px;
-    height: 20px;
-
-    cursor: pointer;
-}
-
-.menu-titulo {
-    color: #8fa09a;
-
-    font-size: 14px;
-
-    font-weight: 400;
-
-    padding-left: 25px;
-
-    margin-bottom: 15px;
-}
-
-.menu-opcoes {
-    list-style: none;
-
-    padding: 0 15px;
-}
-
-.opcao-item {
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-    padding: 12px 15px;
-
-    margin-bottom: 8px;
-
-    border-radius: 10px;
-
-    transition: background 0.2s;
-}
-
-.opcao-item:hover {
-    background: rgba(255, 255, 255, 0.08);
-}
-
-.opcao-item a {
-    color: #ffffff;
-
-    text-decoration: none;
-
-    font-size: 15px;
-
-    font-weight: 500;
-}
-
-.opcao-item.ativa {
-    background-color: #ffffff;
-
-    border-radius: 10px 0 0 10px;
-
-    margin-right: -15px;
-}
-
-.opcao-item.ativa a {
-    color: #1e3830;
-
-    font-weight: 600;
-}
-
-.menu-icon {
-    width: 22px;
-    height: 22px;
-
-    object-fit: contain;
-}
-
-.menu-rodape {
-    margin-top: auto;
-
-    padding: 0 15px 30px;
-}
-
-.menu-divisor {
-    border: 0;
-
-    border-top: 1px solid #334e45;
-
-    margin-bottom: 20px;
-}
-
-.opcao-item.sair a {
-    color: #a0b0ab;
-}
-
-/* ==================== CONFIRMAÇÃO - F04 ==================== */
+/* ==================== MODO CONFIRMAÇÃO ==================== */
 
 #container-confirmacao {
     display: flex;
     flex-direction: column;
-
     align-items: center;
     justify-content: flex-start;
-
     width: 100%;
-
     min-height: calc(100vh - 105px);
-
     margin: 0 auto;
-
-    padding-top: 55px;
-
-    gap: 18px;
-
+    padding-top: 40px;
+    gap: 22px;
     font-family: 'Montserrat', sans-serif;
 }
 
 #container-confirmacao h2 {
     font-family: 'Montserrat', sans-serif;
-
     text-align: center;
-
     font-size: 24px;
-
     font-weight: 700;
-
-    color: #273b34;
-
+    color: #ffffff;
     width: auto;
     max-width: none;
-
     padding: 0;
-
-    margin: 0 0 10px 0;
+    margin: 0;
 }
 
-/* ==================== FOTO ==================== */
-
 .preview-box {
-    width: 230px;
-    height: 230px;
-
+    width: 250px;
+    height: 250px;
     display: flex;
-
     align-items: center;
     justify-content: center;
-
-    border: 1px solid #16855e;
-
-    border-radius: 12px;
-
-    background: rgba(255, 255, 255, 0.35);
-
+    border: 2px solid #009963;
+    border-radius: 16px;
+    background: #021a12;
     overflow: hidden;
-
-    box-shadow: none;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 #preview-foto {
     width: 100%;
     height: 100%;
-
     display: block;
-
-    object-fit: contain;
+    object-fit: cover;
 }
-
-/* ==================== BOTÕES ==================== */
 
 .botoes-confirmacao {
     display: flex;
     flex-direction: column;
-
     align-items: center;
-
-    gap: 9px;
-
-    width: 230px;
+    gap: 12px;
+    width: 250px;
 }
 
 .botoes-confirmacao button {
     width: 100%;
-
-    min-height: 40px;
-
-    padding: 7px 16px;
-
+    min-height: 45px;
+    padding: 10px 20px;
     font-family: 'Montserrat', sans-serif;
-
-    font-size: 14px;
-
-    font-weight: 500;
-
+    font-size: 15px;
+    font-weight: 600;
     border-radius: 22px;
-
     cursor: pointer;
-
-    transition:
-        background-color 0.2s ease,
-        transform 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 /* Botão Enviar */
-
 #btn-confirmar {
-    background-color: #3f514a;
-
+    background-color: #04724b;
     color: #ffffff;
-
-    border: 1px solid #3f514a;
+    border: 2px solid #04724b;
 }
 
 #btn-confirmar:hover {
-    background-color: #33423c;
-
-    transform: scale(1.02);
+    background-color: #009963;
+    border-color: #009963;
+    transform: scale(1.03);
 }
 
 /* Botão Escolher outra */
-
 #btn-alterar {
-    background-color: rgba(255, 255, 255, 0.22);
-
-    color: #147a58;
-
-    border: 1px solid #16855e;
+    background-color: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
 }
 
 #btn-alterar:hover {
-    background-color: rgba(22, 133, 94, 0.08);
-
-    transform: scale(1.02);
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: scale(1.03);
 }
 
-/* ==================== TABLET ==================== */
+/* ==================== RESPONSIVIDADE ==================== */
 
 @media (max-width: 768px) {
-
     #cabecalho {
         margin: 12px 15px;
-
         padding: 0 8px;
-
         min-height: 48px;
-    }
-
-    #icon-menu,
-    #icon-person {
-        width: 48px;
-        height: 48px;
-
-        padding: 12px;
     }
 
     .modo-confirmacao #cabecalho {
         margin: 14px 22px;
-
         min-height: 48px;
     }
 
-    .logo-simbolo {
-        width: 23px;
-        height: 23px;
-    }
-
-    .logo-texto {
-        width: 72px;
-    }
-
-    #corpo h2 {
-        padding-top: 50px;
-
-        width: 92%;
-    }
-
-    #selecionar {
-        margin: 30px auto;
-    }
-
-    #arquivo {
-        width: 80%;
-
-        min-height: 55px;
-    }
-
-    #recomendacao {
-        margin: 20px;
-    }
-
-    .opcao-item a {
-        font-size: 14px;
-    }
-
-    #container-confirmacao {
-        padding-top: 45px;
-    }
-
     #container-confirmacao h2 {
-        padding: 0;
-
         font-size: 22px;
     }
 
     .preview-box {
-        width: 210px;
-        height: 210px;
+        width: 220px;
+        height: 220px;
     }
 
     .botoes-confirmacao {
-        width: 210px;
-    }
-
-    .botoes-confirmacao button {
-        min-height: 38px;
-        font-size: 13px;
+        width: 220px;
     }
 }
 
-/* ==================== CELULAR ==================== */
-
 @media (max-width: 480px) {
-
     #cabecalho {
         margin: 10px 12px;
-
         border-radius: 20px;
-
         padding: 0 4px;
-
-        min-height: 40px;
-    }
-
-    #icon-menu,
-    #icon-person {
-        width: 40px;
-        height: 40px;
-
-        padding: 10px;
-    }
-
-    .cabecalho-home #logo {
-        width: 90px;
+        min-height: 42px;
     }
 
     .modo-confirmacao #cabecalho {
         margin: 10px 14px;
-
         min-height: 44px;
-
         padding: 0 12px;
-
         border-radius: 22px;
     }
 
-    .cabecalho-esquerda {
-        gap: 9px;
-    }
-
-    .botao-menu-confirmacao {
-        width: 23px;
-        height: 23px;
-    }
-
-    .botao-menu-confirmacao span {
-        width: 16px;
-    }
-
-    .logo-simbolo {
-        width: 21px;
-        height: 21px;
-    }
-
-    .logo-texto {
-        width: 66px;
-    }
-
-    #corpo h2 {
-        padding-top: 35px;
-
-        width: 95%;
-    }
-
-    #arquivo {
-        width: 88%;
-
-        min-height: 52px;
-
-        font-size: 16px;
-    }
-
-    #photo-selection {
-        padding: 12px;
-    }
-
-    #menu-lateral {
-        width: 85vw;
-    }
-
-    #container-confirmacao {
-        padding-top: 35px;
-
-        gap: 14px;
-    }
-
     #container-confirmacao h2 {
-        padding: 0;
-
-        width: 90%;
-
         font-size: 20px;
     }
 
     .preview-box {
-        width: 190px;
-        height: 190px;
+        width: 200px;
+        height: 200px;
     }
 
     .botoes-confirmacao {
-        width: 190px;
-
-        gap: 8px;
+        width: 200px;
     }
 
-    .botoes-confirmacao button {
-        min-height: 36px;
-
-        padding: 6px 12px;
-
-        font-size: 12px;
+    #recomendacao {
+        flex-direction: column;
+        gap: 0;
+        padding: 0 20px;
     }
 }
 
-/* ==================== TELAS MUITO PEQUENAS ==================== */
+/* BANNER EM FORMATO PÍLULA (FIGMA) */
+.container-erro-incompativel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
 
-@media (max-width: 360px) {
+.home-erro-banner-pilula {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #d32f2f;
+  color: #ffffff;
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
 
-    #cabecalho {
-        margin: 8px;
+.home-erro-banner-pilula p {
+  margin: 0;
+}
 
-        border-radius: 15px;
-    }
+.home-erro-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  color: #d32f2f;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 12px;
+}
 
-    #icon-menu,
-    #icon-person {
-        width: 34px;
-        height: 34px;
+.subtexto-erro-incompativel {
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  margin-bottom: 24px;
+}
 
-        padding: 8px;
-    }
+.box-icone-arquivo-erro {
+  width: 100px;
+  height: 100px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
 
-    .cabecalho-home #logo {
-        width: 75px;
-    }
+.icone-documento-invalido {
+  font-size: 48px;
+}
 
-    .modo-confirmacao #cabecalho {
-        margin: 8px 10px;
+.formatos-aceitos-texto {
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  margin-bottom: 28px;
+}
 
-        min-height: 42px;
-    }
+.botoes-erro-incompativel {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
 
-    .logo-simbolo {
-        width: 19px;
-        height: 19px;
-    }
+.btn-voltar-home {
+  background: transparent;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  padding: 10px 28px;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
 
-    .logo-texto {
-        width: 61px;
-    }
-
-    #container-confirmacao {
-        padding-top: 28px;
-    }
-
-    #container-confirmacao h2 {
-        font-size: 19px;
-    }
-
-    .preview-box {
-        width: 170px;
-        height: 170px;
-    }
-
-    .botoes-confirmacao {
-        width: 170px;
-    }
+.btn-escolher-novamente {
+  background-color: #009963;
+  color: #ffffff;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-block;
 }
