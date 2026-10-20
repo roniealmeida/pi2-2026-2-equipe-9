@@ -22,7 +22,7 @@ Este diretório reúne todos os artefatos de software, requisitos, modelagem e t
 
 ---
 
-## 📌 1. Requisitos e Visão Geral
+## 1. Requisitos e Visão Geral
 * **Documento de Requisitos Principal (PDF):** Contém glossário, perfis de acesso, requisitos funcionais (Gherkin), requisitos não funcionais e mapeamento de rotas.
   * 📄 [Documento de Requisitos .pdf](./Documento%20de%20Requisitos%20.pdf)
 * **Documento de Visão:**
@@ -34,7 +34,7 @@ Este diretório reúne todos os artefatos de software, requisitos, modelagem e t
 
 ---
 
-## 📐 2. Modelagem e Especificação
+## 2. Modelagem e Especificação
 * **Casos de Uso:**
   * 📄 [Documento Casos de Uso.pdf](./Documento%20Casos%20de%20Uso.pdf)
 * **Modelo Entidade-Relacionamento (MER):**
@@ -44,7 +44,7 @@ Este diretório reúne todos os artefatos de software, requisitos, modelagem e t
 
 ---
 
-## 🎨 3. Protótipos, Design e Interface
+## 3. Protótipos, Design e Interface
 * **Protótipos Wireframes:**
   * 📐 [wireframes.pdf](./wireframes.pdf)
   * 📐 [wireframes_revisados.pdf](./wireframes_revisados.pdf)
@@ -55,7 +55,7 @@ Este diretório reúne todos os artefatos de software, requisitos, modelagem e t
 
 ---
 
-## 🧪 4. Testes e Qualidade
+## 4. Testes e Qualidade
 * **Templates e Casos de Teste:**
   * 📝 [Template_Casos_de_Teste_1.pdf](./Template_Casos_de_Teste_1.pdf)
   * 📝 [Casos_teste_Executados.pdf](./Casos_teste_Executados.pdf)
