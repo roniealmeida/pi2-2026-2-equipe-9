@@ -33,7 +33,7 @@ Bem-vindo à documentação oficial do projeto **AnalisaAI**. Este diretório re
 ## 1. Requisitos e Visão Geral do Sistema
 Documentos que definem o escopo, problema, regras de negócio e os requisitos funcionais e não funcionais da aplicação.
 
-* **Documento de Requisitos Principal (PDF):** [Acessar Documento](https://github.com/roniealmeida/pi2-2026-2-equipe-9/blob/main/docs/Documento%20de%20Requisitos%20.pdf)
+* **Documento de Requisitos Principal (PDF):** [Acessar Documento](https://github.com/roniealmeida/pi2-2026-2-equipe-9/blob/main/docs/Documento%20de%20Requisitos%20%20(1).pdf)
   * *Inclui: Glossário, Perfis de Acesso (Cliente, Admin, Superadmin), Regras de Negócio (RN01 a RN05), RFs com Gherkin, RNFs com métricas e Mapeamento de Rotas.*
 * **Documento de Visão:** [Acessar documento-visao.md](https://github.com/roniealmeida/pi2-2026-2-equipe-9/blob/main/docs/documento-visao.md)
 * **Regras de Negócio:** [Acessar regras-negocio.md](https://github.com/roniealmeida/pi2-2026-2-equipe-9/blob/main/docs/regras-negocio.md)
