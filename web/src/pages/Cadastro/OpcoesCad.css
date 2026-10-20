@@ -23,21 +23,3 @@ button{
     align-items: center;
     flex-direction: column;
 }
-
-div>#opcao-voltar{
-    background-color: #04724b;
-    color: #ffffff;
-    border: 1px solid #fcfcfc;
-    border-radius:  15px;
-
-    padding: 12px 25px;
-    margin: 15px;
-
-    font-size: 14px;
-    font-weight: 300;
-    font-family: 'Montserrat', sans-serif;
-
-    cursor: pointer;
-
-    transition: 0.3s;
-}

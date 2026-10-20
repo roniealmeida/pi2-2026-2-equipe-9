@@ -19,12 +19,12 @@ export default function OpcoesCad() {
 
       <div id="opcoes-container">
         <div>
-          <button type="button" onClick={() => navigate("/cadastroTecnico")}>
+          <button type="button" onClick={() => navigate("/cadastroProdutor")}>
             Sou proprietário(a), agricultor(a) ou pecuarista
           </button>
         </div>
         <div>
-          <button type="button" onClick={() => navigate("/cadastroProdutor")}>
+          <button type="button" onClick={() => navigate("/cadastroTecnico")}>
             Sou técnico(a) agrícola, agrônomo(a) ou afins
           </button>
         </div>

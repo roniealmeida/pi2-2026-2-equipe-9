@@ -12,6 +12,8 @@ import Admin from "../pages/Admin/Admin";
 import CadastroAdmin from "../pages/Admin/CadastroAdmin/CadastroAdmin"
 import ListUsers from "../pages/Admin/ListUsers/ListUsers"
 import OpcoesCad from "../pages/Cadastro/OpcoesCad";
+import CadastroProdutor from "../pages/Cadastro/CadastroProdutor";
+import CadastroTecnico from "../pages/Cadastro/CadastroTecnico";
 
 export default function AppRoutes() {
   return (
@@ -33,6 +35,8 @@ export default function AppRoutes() {
       <Route path="/admin" element={<Admin />} />
       <Route path="/cadastroAdmin" element={<CadastroAdmin />} />
       <Route path="/listUsers" element={<ListUsers />} />
+      <Route path="/cadastroProdutor" element={<CadastroProdutor />} />
+      <Route path="/cadastroTecnico" element={<CadastroTecnico />} />
     </Routes>
   );
 }
