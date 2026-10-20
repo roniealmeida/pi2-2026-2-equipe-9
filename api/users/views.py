@@ -1,3 +1,4 @@
+import logging
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
@@ -16,6 +17,9 @@ from users.serializers.response_serializers import (
 from users.services.user_service import UserService
 
 
+logger = logging.getLogger(__name__)
+
+
 class UserViewSet(viewsets.ViewSet):
     """
     API de Usuários
@@ -24,10 +28,9 @@ class UserViewSet(viewsets.ViewSet):
     """
 
     def get_permissions(self):
-
         if self.action in [
             "login",
-            "create"
+            "create",
             "create_admin"
         ]:
             return [AllowAny()]
@@ -45,18 +48,14 @@ class UserViewSet(viewsets.ViewSet):
     )
     @action(detail=False, methods=["post"])
     def login(self, request):
-
-        serializer = LoginSerializer(
-            data=request.data
-        )
-
-        serializer.is_valid(
-            raise_exception=True
-        )
+        serializer = LoginSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
         dto = serializer.to_dto()
-
         result = UserService.login(dto)
+
+
+        logger.info(f" [HTTP 200 OK] Login efetuado com sucesso para o usuário com telefone '{dto.phone}'.")
 
         return Response(
             result,
@@ -73,18 +72,15 @@ class UserViewSet(viewsets.ViewSet):
         }
     )
     def create(self, request):
-
-        serializer = RegisterUserSerializer(
-            data=request.data
-        )
-
-        serializer.is_valid(
-            raise_exception=True
-        )
+        serializer = RegisterUserSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
         dto = serializer.to_dto()
-
         result = UserService.create_user(dto)
+
+
+        user_name = result.get('user', {}).get('name', dto.name)
+        logger.info(f" [HTTP 201 Created] Novo usuário '{user_name}' e sua fazenda foram persistidos no banco de dados!")
 
         return Response(
             result,
@@ -106,18 +102,14 @@ class UserViewSet(viewsets.ViewSet):
         url_path="admins"
     )
     def create_admin(self, request):
-
-        serializer = RegisterAdminSerializer(
-            data=request.data
-        )
-
-        serializer.is_valid(
-            raise_exception=True
-        )
+        serializer = RegisterAdminSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
         dto = serializer.to_dto()
-
         result = UserService.create_admin(dto)
+
+
+        logger.info(f" [HTTP 201 Created] Administrador '{dto.name}' registrado e persistido no PostgreSQL!")
 
         return Response(
             result,
@@ -133,14 +125,10 @@ class UserViewSet(viewsets.ViewSet):
         url_path="admins/list"
     )
     def list_admins(self, request):
+        requested_by = request.query_params.get("requested_by")
+        result = UserService.list_admins(requested_by)
 
-        requested_by = request.query_params.get(
-            "requested_by"
-        )
-
-        result = UserService.list_admins(
-            requested_by
-        )
+        logger.info(" [HTTP 200 OK] Consulta de administradores realizada no banco de dados.")
 
         return Response(
             result,
@@ -151,14 +139,10 @@ class UserViewSet(viewsets.ViewSet):
         summary="Listar Usuários"
     )
     def list(self, request):
+        requested_by = request.query_params.get("requested_by")
+        result = UserService.list_users(requested_by)
 
-        requested_by = request.query_params.get(
-            "requested_by"
-        )
-
-        result = UserService.list_users(
-            requested_by
-        )
+        logger.info(" [HTTP 200 OK] Consulta de usuários cadastrados realizada no banco de dados.")
 
         return Response(
             result,
@@ -175,20 +159,13 @@ class UserViewSet(viewsets.ViewSet):
         url_path="status"
     )
     def change_status(self, request):
-
-        serializer = ChangeStatusSerializer(
-            data=request.data
-        )
-
-        serializer.is_valid(
-            raise_exception=True
-        )
+        serializer = ChangeStatusSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
         dto = serializer.to_dto()
+        result = UserService.change_status(dto)
 
-        result = UserService.change_status(
-            dto
-        )
+        logger.info(f" [HTTP 200 OK] Status do usuário ID {dto.user_id} atualizado com sucesso no banco.")
 
         return Response(
             result,
@@ -211,29 +188,16 @@ class UserViewSet(viewsets.ViewSet):
         url_path="profile"
     )
     def update_profile(self, request):
-        """
-        Atualiza os dados cadastrais do usuário.
-        
-        Permite atualização parcial ou completa de:
-        - Nome do usuário
-        - Telefone
-        - Nome da fazenda
-        - Estado
-        - Localidade
-        - Município
-        
-        Parâmetro obrigatório: user_id (no body da requisição)
-        """
         serializer = UpdateUserSerializer(
             data=request.data,
             partial=True
         )
-
         serializer.is_valid(raise_exception=True)
 
         dto = serializer.to_dto()
-
         result = UserService.update_user(dto)
+
+        logger.info(f" [HTTP 200 OK] Perfil e dados da fazenda do usuário ID {dto.user_id} atualizados no banco.")
 
         return Response(
             result,
