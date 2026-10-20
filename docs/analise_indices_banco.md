@@ -2,29 +2,29 @@
 
 ## 1. Objetivo
 
-Identificar as consultas e os filtros utilizados pelas rotas da API, mapear as colunas envolvidas e documentar os índices existentes e possíveis necessidades de otimização.
+O objetivo desta tarefa é verificar quais consultas são feitas pela API, quais colunas são usadas nos filtros e quais índices já existem no banco de dados. Com isso, podemos identificar se há alguma coluna que pode precisar de um índice no futuro.
 
-## 2. Consultas e filtros identificados
+## 2. Consultas e filtros encontrados
 
-A análise do código identificou as seguintes consultas relevantes:
+Analisando o código da API, encontrei consultas que usam as seguintes colunas:
 
-| Módulo | Tabela | Colunas utilizadas | Finalidade |
+| Módulo | Tabela | Colunas | Para que são usadas |
 |---|---|---|---|
-| Usuários | `Users` | `id` | Buscar usuários por identificador |
-| Usuários | `Users` | `phone` | Login e verificação de telefone já cadastrado |
-| Usuários | `Users` | `is_admin` | Listar usuários administradores ou comuns |
-| Fazendas | `Farms` | `user_id` | Buscar a fazenda associada a um usuário |
-| Análises | `SearchRequests` | `user_id`, `result_type`, `request_date` | Consultar histórico de análises por usuário e ordenar por data |
-| Análises | `SearchRequests` | `id`, `user_id` | Buscar uma análise específica pertencente a um usuário |
-| Análises | `SearchRequests` | `request_date` | Ordenar a listagem geral de análises |
-| Resultados | `PlantAnalysisResults` | `search_request_id` | Buscar resultados associados a uma requisição |
-| Logs de erro | `SearchErrorLogs` | `search_request_id` | Buscar o log de erro associado a uma requisição |
+| Usuários | `Users` | `id` | Buscar um usuário pelo ID |
+| Usuários | `Users` | `phone` | Fazer login e verificar se o telefone já está cadastrado |
+| Usuários | `Users` | `is_admin` | Separar usuários comuns dos administradores |
+| Fazendas | `Farms` | `user_id` | Buscar a fazenda de um usuário |
+| Análises | `SearchRequests` | `user_id`, `result_type`, `request_date` | Buscar o histórico de análises de um usuário e ordenar por data |
+| Análises | `SearchRequests` | `id`, `user_id` | Buscar uma análise específica de um usuário |
+| Análises | `SearchRequests` | `request_date` | Ordenar a lista geral de análises por data |
+| Resultados | `PlantAnalysisResults` | `search_request_id` | Buscar os resultados de uma análise |
+| Logs de erro | `SearchErrorLogs` | `search_request_id` | Buscar o log de erro de uma requisição |
 
-## 3. Índices existentes
+## 3. Índices que já existem
 
-A estrutura do banco PostgreSQL foi consultada por meio da introspecção do Django.
+Consultei a estrutura do banco PostgreSQL para verificar os índices existentes. Encontrei os seguintes:
 
-| Tabela | Coluna(s) | Índice ou restrição identificada |
+| Tabela | Coluna | O que foi encontrado |
 |---|---|---|
 | `Users` | `id` | Chave primária |
 | `Farms` | `id` | Chave primária |
@@ -34,42 +34,44 @@ A estrutura do banco PostgreSQL foi consultada por meio da introspecção do Dja
 | `PlantAnalysisResults` | `id` | Chave primária |
 | `PlantAnalysisResults` | `search_request_id` | Índice existente |
 | `SearchErrorLogs` | `id` | Chave primária |
-| `SearchErrorLogs` | `search_request_id` | Restrição de unicidade e índice associado |
+| `SearchErrorLogs` | `search_request_id` | Restrição de unicidade com índice associado |
 
-As chaves primárias identificam os registros. Os índices das chaves estrangeiras auxiliam consultas e relacionamentos entre as tabelas.
+As chaves primárias já possuem índices, e também existem índices em colunas usadas nos relacionamentos entre as tabelas.
 
-A restrição de unicidade de `SearchErrorLogs.search_request_id` impede que uma mesma requisição possua mais de um registro de erro.
+No caso de `SearchErrorLogs`, a coluna `search_request_id` tem uma restrição de unicidade. Isso impede que a mesma requisição tenha mais de um log de erro.
 
-## 4. Possíveis necessidades de indexação
+## 4. Colunas que podem precisar de índices
 
 ### 4.1. Telefone do usuário
 
-A coluna `Users.phone` é utilizada nas consultas de login e na verificação de telefones já cadastrados. Não foi identificado índice para essa coluna na inspeção realizada.
+A coluna `Users.phone` é usada no login e na verificação de telefones já cadastrados. Na consulta que fiz, não encontrei um índice para essa coluna.
 
-**Recomendação:** avaliar a criação de um índice em `phone`, considerando a frequência dessas consultas e o volume de usuários. Caso o telefone deva ser único, também deve ser avaliada uma restrição de unicidade no banco, pois a verificação feita apenas pela aplicação não garante a ausência de duplicidades em operações concorrentes.
+Vale avaliar a criação de um índice, principalmente se a quantidade de usuários aumentar e essas consultas ficarem mais lentas.
+
+Também é importante observar que a verificação de telefone duplicado feita pelo código não garante, sozinha, que não haverá duplicidade em operações simultâneas. Se a regra do sistema for permitir apenas um cadastro por telefone, seria necessário avaliar uma restrição de unicidade no banco.
 
 ### 4.2. Histórico de análises
 
-A consulta de histórico filtra `SearchRequests` por `user_id` e `result_type`, e ordena os resultados por `request_date`.
+Na consulta do histórico, são usados `user_id` e `result_type` como filtros, e os resultados são ordenados por `request_date`.
 
-**Recomendação:** avaliar um índice composto por `(user_id, result_type, request_date)` para atender aos filtros e à ordenação. A necessidade deve ser confirmada por análise do plano de execução e do volume de dados.
+Uma possibilidade seria criar um índice composto com essas três colunas: `(user_id, result_type, request_date)`. Ele pode ajudar nessa consulta, mas seria necessário testar o desempenho antes de decidir pela criação.
 
-### 4.3. Listagem geral de análises
+### 4.3. Lista geral de análises
 
-A listagem geral consulta as requisições e as ordena por `request_date` em ordem decrescente.
+A listagem geral de análises é ordenada pela coluna `request_date`. Não encontrei um índice específico para essa coluna.
 
-**Recomendação:** avaliar se um índice em `request_date` traz benefício para essa consulta, utilizando o plano de execução e dados representativos. A existência de uma ordenação, isoladamente, não garante que um novo índice seja necessário.
+Podemos avaliar se um índice nela ajudaria a melhorar essa consulta. Para decidir, seria importante verificar o plano de execução e considerar a quantidade de registros no banco.
 
-### 4.4. Filtro por administrador
+### 4.4. Filtro de administradores
 
-A listagem de usuários utiliza a coluna `is_admin` para separar administradores e usuários comuns.
+A coluna `is_admin` é usada para listar administradores e usuários comuns. Apesar de não ter encontrado um índice para ela, não significa que seja necessário criar um.
 
-**Recomendação:** manter como ponto de observação. Como se trata de uma coluna booleana, um índice isolado pode não trazer benefício suficiente; a decisão depende da distribuição dos dados e do desempenho observado.
+Como essa coluna só possui valores booleanos, um índice separado pode não trazer uma melhora significativa. Por isso, vale observar o desempenho antes de fazer alguma alteração.
 
 ## 5. Conclusão
 
-A inspeção identificou índices existentes nas chaves primárias e em relacionamentos importantes do sistema, além da restrição de unicidade em `SearchErrorLogs.search_request_id`.
+Com essa análise, foi possível identificar os índices que já existem e as colunas usadas com mais frequência nas consultas da API.
 
-As principais oportunidades a avaliar são a indexação de `Users.phone` e um possível índice composto para a consulta de histórico em `SearchRequests`. Também devem ser analisados os planos de execução das consultas ordenadas por data antes de qualquer alteração.
+Os principais pontos que podem ser avaliados no futuro são a coluna `Users.phone` e um possível índice composto para o histórico de análises em `SearchRequests`.
 
-As recomendações deste documento são propostas de avaliação, não alterações já realizadas no banco de dados. A criação de novos índices deve ser precedida de validação de desempenho e dos requisitos de integridade do sistema.
+Por enquanto, não foram criados novos índices. Antes de fazer isso, é importante verificar se realmente haverá ganho de desempenho e se as alterações atendem às regras do sistema.
