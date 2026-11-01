@@ -1,0 +1,25 @@
+button{
+    border: 1px solid #fcfcfc;
+    color: #ffffff;
+    background-color: #04724b00;
+    border-radius:  15px;
+    
+
+    padding: 12px 25px;
+    margin: 15px;
+
+    font-size: 14px;
+    font-weight: 300;
+    font-family: 'Montserrat', sans-serif;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+#opcoes-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

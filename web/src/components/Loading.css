@@ -1,0 +1,38 @@
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 40px;
+    width: 100%;
+}
+
+/* O círculo de carregamento */
+.spinner {
+    /* Troca o tamanho fixo de 50px por um tamanho elástico */
+    width: clamp(40px, 10vw, 60px);
+    height: clamp(40px, 10vw, 60px);
+    
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-top: 4px solid #009963;
+    border-radius: 50%;
+    animation: rodar 1s linear infinite;
+}
+
+.loading-container p {
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+/* Animação que faz o spinner girar 360 graus */
+@keyframes rodar {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
