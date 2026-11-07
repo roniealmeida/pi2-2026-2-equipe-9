@@ -16,7 +16,7 @@ A rastreabilidade garante a transparência e o alinhamento entre as **Regras de 
 ## 1.  Matriz de Rastreabilidade de Requisitos
 
 | Código RF | Requisito Funcional | Regras de Negócio (RN) | Requisitos Não Funcionais (RNF) | Atores | Tela | Status | Rota / Endpoint (Contrato API) |
-| :---: | :--- | :---: | :---: | :--- | :---: | :--- |
+| :---: | :--- | :---: | :---: | :--- | :---: | :--- | :---: |
 | **RF001** | Cadastro de usuários | RN01, RN03, RN04, RN05 | RNF001, RNF005 | Cliente, Administrador, Superadministrador | [1 - CADASTRO PROP](https://www.figma.com/design/0W7cbmaywxAIRn9Q8TXnvY/PI?node-id=1177-361&t=fE4Hw1Wnyxpg1z4H-4) e [1 - CADASTRO TEC](https://www.figma.com/design/0W7cbmaywxAIRn9Q8TXnvY/PI?node-id=1347-503&t=fE4Hw1Wnyxpg1z4H-4) |`VALIDADO` | `POST /api/v1/users/register` |
 | **RF002** | Login | RN01, RN05 | RNF001, RNF004, RNF009 | Cliente, Administrador | [1 - LOGIN](https://www.figma.com/design/0W7cbmaywxAIRn9Q8TXnvY/PI?node-id=1139-54&t=fE4Hw1Wnyxpg1z4H-4) | `VALIDADO` | `POST /api/v1/auth/login` |
 | **RF003** | Realizar envio das imagens | RN02 | RNF005, RNF006, RNF008 | Cliente | [1 - HOME](https://www.figma.com/design/0W7cbmaywxAIRn9Q8TXnvY/PI?node-id=1494-2023&t=fE4Hw1Wnyxpg1z4H-4) |`VALIDADO` | `POST /api/v1/plants/analyze` |
@@ -25,8 +25,8 @@ A rastreabilidade garante a transparência e o alinhamento entre as **Regras de 
 | **RF006** | Configuração de perfil | RN01, RN05 | RNF001, RNF005 | Cliente | [1 - EDITAR PERFIL](https://www.figma.com/design/0W7cbmaywxAIRn9Q8TXnvY/PI?node-id=1494-2372&t=fE4Hw1Wnyxpg1z4H-4) | `INVALIDADO` | `PUT /api/v1/users/profile` |
 | **RF007** | Listagem de Histórico | — | RNF001, RNF005, RNF008 | Cliente | [1 - HISTORICO](https://www.figma.com/design/0W7cbmaywxAIRn9Q8TXnvY/PI?node-id=1494-2280&t=fE4Hw1Wnyxpg1z4H-4) | `INVALIDADO` | `GET /api/v1/plants/history` |
 | **RF008** | Logout do sistema | — | RNF004 | Cliente, Administrador | [MENU LATERAL PROP](https://www.figma.com/design/0W7cbmaywxAIRn9Q8TXnvY/PI?node-id=1473-1687&t=fE4Hw1Wnyxpg1z4H-4) | `VALIDADO` | `POST /api/v1/auth/logout` |
-| **RF009** | Gerenciar usuários | RN04 | RNF004, RNF005 | Administrador | `INVALIDADO` | `GET /api/v1/admin/users`<br>`PATCH /api/v1/admin/users/{id}/status` |
-| **RF010** | Monitoramento do uso do sistema | RN04 | RNF003, RNF004 | Administrador | `NÃO EXECUTADO` | `GET /api/v1/admin/metrics` |
+| **RF009** | Gerenciar usuários | RN04 | RNF004, RNF005 | Administrador | - | `INVALIDADO` | `GET /api/v1/admin/users`<br>`PATCH /api/v1/admin/users/{id}/status` |
+| **RF010** | Monitoramento do uso do sistema | RN04 | RNF003, RNF004 | Administrador | - | `NÃO EXECUTADO` | `GET /api/v1/admin/metrics` |
 | **RF011** | Recuperação de Senha ou PIN | RN05 | RNF001, RNF009 | Cliente, Administrador | [1 - ALTERAÇÃO SENHA](https://www.figma.com/design/0W7cbmaywxAIRn9Q8TXnvY/PI?node-id=1494-2884&t=fE4Hw1Wnyxpg1z4H-4) | `NÃO EXECUTADO` | `POST /api/v1/auth/recover-password` |
 
 ### 🔍 Legenda de Status
