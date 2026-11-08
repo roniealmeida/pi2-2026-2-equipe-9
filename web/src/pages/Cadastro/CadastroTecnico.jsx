@@ -38,7 +38,15 @@ export default function CadastroTecnico() {
         confirm_password: confirmarSenha,
         professional_register: registroProfissional,
         specialty: especialidade,
-        role: "tecnico"
+        role: "technician",       // Alterado para inglês para bater com o padrão de choices do Django
+        user_type: "technician",  // Enviado para cobrir caso o backend use user_type
+        is_technician: true,      // Flag booleana extra de apoio caso o backend filtre por ela
+        farm: {
+          name: "N/A",
+          state: "CE",
+          location: "N/A",
+          municipality: "Crateús"
+        }
       });
       alert("Cadastro feito com sucesso!");
       navigate("/");

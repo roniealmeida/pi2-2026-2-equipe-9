@@ -59,6 +59,8 @@ export default function CadastroProdutor() {
         phone: telefone,
         password: senha,
         confirm_password: confirmarSenha,
+        role: "producer",      // <--- Adicionado para informar explicitamente que é produtor
+        tipo: "produtor",      // <--- Compatibilidade com variações do backend
         farm:
           nomeFazenda && estadoSelecionado && cidadeSelecionada && localidade
             ? {

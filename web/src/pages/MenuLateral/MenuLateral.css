@@ -49,6 +49,35 @@
   cursor: pointer;
 }
 
+/* ==================== CRACHÁ / IDENTIFICAÇÃO DO PERFIL ==================== */
+.menu-user-badge {
+  margin: 5px 20px 15px 20px;
+  padding: 10px 14px;
+  background: rgba(4, 114, 75, 0.25);
+  border: 1px solid #009963;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.user-badge-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-badge-role {
+  font-size: 11px;
+  font-weight: 500;
+  color: #a7f3d0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 .menu-titulo {
   color: #8fa09a;
   font-size: 14px;
@@ -73,7 +102,6 @@
   width: 100%;
 }
 
-/* AQUI O TREM FEZ A ÁREA FICAR toda clicável */
 .link-wrapper {
   display: flex;
   align-items: center;
@@ -101,7 +129,6 @@
   flex-shrink: 0;
 }
 
-/* TEXTO */
 .link-wrapper span {
   pointer-events: none;
 }
@@ -136,4 +163,19 @@
 
 .link-sair:hover {
   background: rgba(255, 255, 255, 0.05);
+}
+
+/* ==================== OPÇÃO BLOQUEADA / APAGADA ==================== */
+.opcao-item.opcao-bloqueada {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.opcao-item.opcao-bloqueada .link-wrapper {
+  color: #8fa09a;
+  cursor: not-allowed;
+}
+
+.opcao-item.opcao-bloqueada .link-wrapper:hover {
+  background: transparent;
 }
