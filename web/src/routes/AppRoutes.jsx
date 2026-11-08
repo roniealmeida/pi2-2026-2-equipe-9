@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "../pages/Login/Login";
 import Home from "../pages/Home/Home";
 import EditarPerfil from "../pages/EditarPerfil/EditarPerfil";
+import AlterarSenha from "../pages/EditarPerfil/AlterarSenha/AlterarSenha"; // Importação da nova tela
 import Historico from "../pages/Historico/Historico"; 
 import Retorno from "../pages/Retorno/Retorno"; 
 import Resultado from "../pages/Resultado/Resultado"; 
@@ -27,6 +28,7 @@ export default function AppRoutes() {
       <Route path="/home" element={<Home />} />
       <Route path="/opcoesCadastro" element={<OpcoesCad />} />
       <Route path="/editar-perfil" element={<EditarPerfil />} />
+      <Route path="/alterar-senha" element={<AlterarSenha />} /> {/* Nova rota registrada */}
       <Route path="/historico" element={<Historico />} />
       
       <Route path="/cadastro" element={<Cadastrar />} />

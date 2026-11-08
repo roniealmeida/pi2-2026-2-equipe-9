@@ -154,6 +154,12 @@
   gap: 24px 32px;
 }
 
+/* Faz o campo de alteração de senha ocupar a linha inteira na grade */
+.colunas-2 > .campo-com-botao:nth-child(5) {
+  grid-column: 1 / -1;
+  max-width: 100%;
+}
+
 .campo-com-botao,
 .campo-sem-botao {
   display: flex;

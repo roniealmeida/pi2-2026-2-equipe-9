@@ -148,7 +148,7 @@ export default function EditarPerfil() {
     if (dados.fazenda !== farm.name) payload.farm_name = dados.fazenda;
     if (estadoSelecionado !== farm.state) payload.state = estadoSelecionado;
     if (cidadeSelecionada !== farm.municipality) payload.municipality = cidadeSelecionada;
-    if (dados.localidade !== farm.location) payload.location = dados.localidade;
+    if (dados.localidade !== farm.location) payload.location = dados.location;
 
     if (Object.keys(payload).length === 1) {
       setMensagemFeedback({
@@ -169,8 +169,7 @@ export default function EditarPerfil() {
         setMensagemFeedback({
           tipo: "sucesso",
           texto: "Dados cadastrais atualizados com sucesso!",
-        });
-        
+        });        
         setDados({
           nome: updatedUser.name || "",
           telefone: updatedUser.phone || "",
@@ -180,7 +179,6 @@ export default function EditarPerfil() {
         setEstadoSelecionado(updatedUser.farm?.state || "");
         setCidadeSelecionada(updatedUser.farm?.municipality || "");
         
-        // Desativa modos de edição individuais após guardar
         setEditando({
           nome: false,
           telefone: false,
@@ -335,6 +333,26 @@ export default function EditarPerfil() {
                       onClick={() => toggleEditar("localidade")}
                     >
                       {editando.localidade ? <><BsCheck /> Concluir</> : <><BsPencil /> Editar</>}
+                    </button>
+                  </div>
+                </div>
+
+                {/* ALTERAR SENHA (ADICIONADO CONFORME O FIGMA) */}
+                <div className="campo-com-botao">
+                  <label htmlFor="senha">Alterar senha</label>
+                  <div className="input-botao-wrapper">
+                    <input
+                      type="password"
+                      id="senha"
+                      value="********"
+                      disabled
+                    />
+                    <button
+                      type="button"
+                      className="btn-editar"
+                      onClick={() => navigate("/alterar-senha")}
+                    >
+                      <BsPencil /> Editar
                     </button>
                   </div>
                 </div>
