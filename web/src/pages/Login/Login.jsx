@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./Login.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import logo from "../../assets/images/Logo-AnalisaAI.png";
@@ -8,6 +8,8 @@ import Loading from "../../components/Loading.jsx";
 
 export default function Login() {
   const navigate = useNavigate();
+  const location = useLocation(); // Lê o estado enviado pelo ProtectedRoute
+
   const [ver, setVer] = useState(false);
   const [telefone, setTelefone] = useState("");
   const [password, setPassword] = useState("");
@@ -47,7 +49,12 @@ export default function Login() {
       const currentUser = useAuthStore.getState().user;
 
       if (currentUser) {
-        if (currentUser.is_admin) {
+        // Redireciona para o destino que o usuário tentou acessar antes de ser barrado
+        const destino = location.state?.from?.pathname;
+
+        if (destino) {
+          navigate(destino, { replace: true });
+        } else if (currentUser.is_admin) {
           navigate("/admin");
         } else {
           navigate("/home");

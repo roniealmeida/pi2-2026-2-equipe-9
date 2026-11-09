@@ -12,6 +12,7 @@ export default defineConfig({
       "/api": {
         target: "http://api:8000",
         changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""), // 👈 ESSA LINHA RESOLVE O PROBLEMA
       },
 
       "/media": {
