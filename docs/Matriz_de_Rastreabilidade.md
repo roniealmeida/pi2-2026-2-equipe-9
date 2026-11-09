@@ -1,4 +1,4 @@
-# 🗺️ Matriz de Rastreabilidade e Arquitetura de Requisitos — AnalisaAI
+#  Matriz de Rastreabilidade e Arquitetura de Requisitos — AnalisaAI
 
 **Projeto:** AnalisaAI — Identificação de Plantas Tóxicas  
 **Instituição:** Universidade Federal do Ceará (UFC) — Campus Crateús / IFCE — Campus Crateús  
@@ -16,7 +16,7 @@
 
 ---
 
-## 1. 📖 GLOSSÁRIO
+## 1.  GLOSSÁRIO
 
 * **LLM (Large Language Model):** Modelo de Inteligência Artificial baseado em linguagem natural utilizado no sistema para processar as imagens enviadas e identificar as espécies de plantas e seus riscos associados.
 * **LGPD (Lei Geral de Proteção de Dados - Lei nº 13.709/2018):** Legislação brasileira que rege o tratamento de dados pessoais, exigindo consentimento explícito dos usuários para coleta e armazenamento de informações.
@@ -31,7 +31,7 @@
 
 ---
 
-## 2. 👥 PERFIS DE ACESSO
+## 2.  PERFIS DE ACESSO
 
 1. **Cliente (Produtor Rural):** Perfil externo responsável por realizar o cadastro na plataforma, atualizar seus dados cadastrais, capturar e enviar imagens de plantas via câmera ou galeria, consultar o histórico de análises, consultar informações sobre as espécies e gerenciar sua sessão de login.
 2. **Técnico Agrícola (Interno):** Perfil interno responsável por contribuir com a base de conhecimento do sistema. Pode enviar imagens de plantas, cadastrar informações sobre espécies (nome popular, nome científico, características, toxicidade, animais afetados), revisar e corrigir identificações realizadas pela inteligência artificial e validar informações antes de sua inclusão na base oficial. Suas contas são criadas exclusivamente pelo Superadministrador.
@@ -40,7 +40,7 @@
 
 ---
 
-## 3. 🛡️ REGRAS DE NEGÓCIO (RN)
+## 3.  REGRAS DE NEGÓCIO (RN)
 
 * **RN01 - Unicidade de Contato:** Cada número de telefone cadastrado deve ser único no sistema, servindo como identificador principal para autenticação.
 * **RN02 - Validação de Imagem:** O sistema deve rejeitar o envio de arquivos que ultrapassem 10 MB, estejam fora dos formatos JPG/PNG ou possuam resolução inferior a 300x300 pixels.
@@ -55,7 +55,7 @@
 
 ---
 
-## 4. 🚀 REQUISITOS FUNCIONAIS (RFs) E DE CONTRATO
+## 4.  REQUISITOS FUNCIONAIS (RFs) E DE CONTRATO
 
 | Código | Requisito Funcional | Atores Envolvidos | Regras Relacionadas | RNFs Aplicados | Rota da API (Contract Endpoint) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -78,7 +78,7 @@
 
 ---
 
-## 5. ⚙️ REQUISITOS NÃO FUNCIONAIS (RNFs)
+## 5.  REQUISITOS NÃO FUNCIONAIS (RNFs)
 
 * **RNF001 - Tempo de resposta do sistema (Desempenho):** O sistema deve apresentar resposta para operações de cadastro, login e carregamento de telas em no máximo 3 segundos, considerando conexão estável com a internet.
 * **RNF002 - Tempo de processamento da análise da imagem (Desempenho):** O sistema deve retornar o resultado da identificação da planta em no máximo 10 segundos após o envio da imagem pelo cliente.
@@ -98,7 +98,7 @@
 
 ---
 
-## 6. 🔗 MATRIZ DE RASTREABILIDADE MATRICIAL (VISÃO GERAL)
+## 6.  MATRIZ DE RASTREABILIDADE MATRICIAL (VISÃO GERAL)
 
 | ID RF | Atores Envolvidos | Regras de Negócio (RN) | Requisitos Não Funcionais (RNF) | Rotas de API Integradas |
 | :--- | :--- | :--- | :--- | :--- |
