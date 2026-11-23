@@ -16,6 +16,7 @@ import ListUsers from "../pages/Admin/ListUsers/ListUsers";
 import OpcoesCad from "../pages/Cadastro/OpcoesCad";
 import CadastroProdutor from "../pages/Cadastro/CadastroProdutor";
 import CadastroTecnico from "../pages/Cadastro/CadastroTecnico";
+import EsqSenha from "../pages/Login/EsqSenha";
 
 import TecnicoFilaTrabalho from "../pages/TecnicoFilaTrabalho/TecnicoFilaTrabalho";
 import TecnicoRevisaoDiagnostico from "../pages/TecnicoRevisaoDiagnostico/TecnicoRevisaoDiagnostico";
@@ -29,6 +30,7 @@ export default function AppRoutes() {
       <Route path="/opcoesCadastro" element={<OpcoesCad />} />
       <Route path="/cadastroProdutor" element={<CadastroProdutor />} />
       <Route path="/cadastroTecnico" element={<CadastroTecnico />} />
+      <Route path="/esqSenha" element={<EsqSenha />} />
 
       <Route
         path="/home"
@@ -130,6 +132,7 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
+
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
