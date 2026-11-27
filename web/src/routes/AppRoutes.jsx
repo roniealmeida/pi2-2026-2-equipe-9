@@ -1,13 +1,14 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "../components/ProtectedRoute";
 
+import LandingPage from "../pages/LandingPage/LandingPage";
 import Login from "../pages/Login/Login";
 import Home from "../pages/Home/Home";
 import EditarPerfil from "../pages/EditarPerfil/EditarPerfil";
 import AlterarSenha from "../pages/EditarPerfil/AlterarSenha/AlterarSenha";
-import Historico from "../pages/Historico/Historico"; 
-import Retorno from "../pages/Retorno/Retorno"; 
-import Resultado from "../pages/Resultado/Resultado"; 
+import Historico from "../pages/Historico/Historico";
+import Retorno from "../pages/Retorno/Retorno";
+import Resultado from "../pages/Resultado/Resultado";
 import Cadastrar from "../pages/Cadastro/Cadastrar";
 import Propriedade from "../pages/Cadastro/Propriedade";
 import Admin from "../pages/Admin/Admin";
@@ -25,13 +26,15 @@ export default function AppRoutes() {
   return (
     <Routes>
       {/* 🟢 ROTAS PÚBLICAS (Acesso sem login) */}
-      <Route path="/" element={<Login />} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/cadastro" element={<Cadastrar />} />
       <Route path="/opcoesCadastro" element={<OpcoesCad />} />
       <Route path="/cadastroProdutor" element={<CadastroProdutor />} />
       <Route path="/cadastroTecnico" element={<CadastroTecnico />} />
       <Route path="/esqSenha" element={<EsqSenha />} />
 
+      {/* 🔒 ROTAS PROTEGIDAS */}
       <Route
         path="/home"
         element={
@@ -98,7 +101,6 @@ export default function AppRoutes() {
         }
       />
 
-
       <Route
         path="/fila-trabalho"
         element={
@@ -115,7 +117,6 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
-
 
       <Route
         path="/admin"

@@ -144,6 +144,13 @@ export default function Login() {
       <div id="logo">
         <img src={logo} alt="Logo AnalisaAI" />
       </div>
+      <button
+        type="button"
+        className="voltar"
+        onClick={() => navigate("/")}
+      >
+        Voltar para o inicio
+      </button>
 
       <div className="textos">
         <h2>Boas-vindas ao AnalisaAI. Realize seu acesso.</h2>
