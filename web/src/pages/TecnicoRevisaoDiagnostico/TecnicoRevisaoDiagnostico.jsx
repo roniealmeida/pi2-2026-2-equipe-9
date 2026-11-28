@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import MenuLateral from "../MenuLateral/MenuLateral";
@@ -11,7 +12,8 @@ import "./TecnicoRevisaoDiagnostico.css";
 export default function TecnicoRevisaoDiagnostico() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { submitTechnicalReview, loading, error: storeError } = useAnalysisStore();
+  const { submitTechnicalReview, loading, error: storeError } =
+    useAnalysisStore();
 
   // Dados recebidos da navegação/fila (ou fallback para testes)
   const analiseData = location.state || {
@@ -28,7 +30,9 @@ export default function TecnicoRevisaoDiagnostico() {
   const [parecerTecnico, setParecerTecnico] = useState("");
   const [modoEdicao, setModoEdicao] = useState(false);
   const [termoBusca, setTermoBusca] = useState("");
-  const [especieSelecionada, setEspecieSelecionada] = useState(analiseData.especieIa);
+  const [especieSelecionada, setEspecieSelecionada] = useState(
+    analiseData.especieIa
+  );
   const [erroLocal, setErroLocal] = useState(null);
 
   // Lista para busca dinâmica de espécies
@@ -64,9 +68,14 @@ export default function TecnicoRevisaoDiagnostico() {
       alert("Parecer técnico enviado com sucesso ao produtor!");
       navigate("/fila-trabalho");
     } catch (err) {
-      console.warn("Falha na API ao enviar revisão. Exibindo alerta de fallback.", err);
-      alert("Validação concluída (modo demonstração). Diagnóstico registrado!");
-      navigate("/fila-trabalho");
+      console.error("Erro ao enviar revisão técnica:", err);
+
+      const mensagem =
+        err.response?.data?.message ||
+        err.response?.data?.detail ||
+        "Não foi possível enviar a revisão técnica. Verifique sua conexão e tente novamente.";
+
+      setErroLocal(mensagem);
     }
   };
 
@@ -98,16 +107,31 @@ export default function TecnicoRevisaoDiagnostico() {
         />
       </header>
 
-      <MenuLateral menuAberto={menuAberto} setMenuAberto={setMenuAberto} />
+      <MenuLateral
+        menuAberto={menuAberto}
+        setMenuAberto={setMenuAberto}
+      />
 
       <main className="revisao-container">
-        <h2 className="revisao-titulo">Revisão Técnica de Diagnóstico</h2>
+        <h2 className="revisao-titulo">
+          Revisão Técnica de Diagnóstico
+        </h2>
+
         <p className="revisao-subtitulo">
-          Produtor: <strong>{analiseData.produtorNome}</strong> | Fazenda: <strong>{analiseData.fazendaNome}</strong> | Data: {analiseData.dataEnvio}
+          Produtor: <strong>{analiseData.produtorNome}</strong> | Fazenda:{" "}
+          <strong>{analiseData.fazendaNome}</strong> | Data:{" "}
+          {analiseData.dataEnvio}
         </p>
 
         {(erroLocal || storeError) && (
-          <div className="home-erro-banner-pilula" style={{ width: "100%", justifyContent: "center", marginBottom: "20px" }}>
+          <div
+            className="home-erro-banner-pilula"
+            style={{
+              width: "100%",
+              justifyContent: "center",
+              marginBottom: "20px",
+            }}
+          >
             <span className="home-erro-icon">!</span>
             <p>{erroLocal || storeError}</p>
           </div>
@@ -128,11 +152,19 @@ export default function TecnicoRevisaoDiagnostico() {
           {/* Lado Direito: Diagnóstico da IA */}
           <div className="card-analisa">
             <h3>Diagnóstico da IA</h3>
+
             <div>
-              <p style={{ fontSize: "14px", opacity: 0.8 }}>Espécie Detectada:</p>
-              <p className="especie-destaque">{especieSelecionada}</p>
+              <p style={{ fontSize: "14px", opacity: 0.8 }}>
+                Espécie Detectada:
+              </p>
+
+              <p className="especie-destaque">
+                {especieSelecionada}
+              </p>
+
               <p className="confianca-badge">
-                Nível de Confiança: <strong>{analiseData.confiancaIa}%</strong>
+                Nível de Confiança:{" "}
+                <strong>{analiseData.confiancaIa}%</strong>
               </p>
             </div>
 
@@ -146,9 +178,16 @@ export default function TecnicoRevisaoDiagnostico() {
               </button>
             ) : (
               <div className="box-edicao-especie">
-                <label style={{ display: "block", fontSize: "13px", color: "#e2e8f0" }}>
+                <label
+                  style={{
+                    display: "block",
+                    fontSize: "13px",
+                    color: "#e2e8f0",
+                  }}
+                >
                   Buscar Espécie na Base Oficial:
                 </label>
+
                 <input
                   type="text"
                   className="input-busca-especie"
@@ -156,13 +195,15 @@ export default function TecnicoRevisaoDiagnostico() {
                   onChange={(e) => setTermoBusca(e.target.value)}
                   placeholder="Digite para buscar..."
                 />
+
                 <ul className="lista-busca-especies">
                   {especiesFiltradas.map((esp, idx) => (
                     <li
                       key={idx}
                       onClick={() => {
                         setEspecieSelecionada(esp);
-                        setModoEdicao(false);
+                        setModoEdicao(true);
+                        setTermoBusca("");
                       }}
                     >
                       {esp}
@@ -175,8 +216,12 @@ export default function TecnicoRevisaoDiagnostico() {
         </div>
 
         {/* Parecer Técnico */}
-        <div className="card-analisa" style={{ marginBottom: "24px" }}>
+        <div
+          className="card-analisa"
+          style={{ marginBottom: "24px" }}
+        >
           <h3>Parecer Técnico e Recomendações</h3>
+
           <textarea
             className="textarea-parecer"
             rows="5"

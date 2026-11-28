@@ -37,6 +37,7 @@ class PlantAnalysisViewSet(viewsets.ViewSet):
 
     def get_permissions(self):
         if self.action in [
+            "create",
             "list",
             "retrieve",
             "all_analysis",
@@ -71,7 +72,7 @@ class PlantAnalysisViewSet(viewsets.ViewSet):
         serializer = AnalysisSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        dto = serializer.to_dto()
+        dto = serializer.to_dto(user_id=request.user.id)
         result = PlantAnalysisService.analisys(dto)
 
         return Response(

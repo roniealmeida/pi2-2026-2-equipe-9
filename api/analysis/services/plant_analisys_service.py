@@ -205,8 +205,13 @@ class PlantAnalysisService:
 
         if not image_field:
             return None
+        
+        image_url = image_field.url
 
-        return image_field.url
+        if request is not None:
+            return request.build_absolute_uri(image_url)
+
+        return image_url
 
     @staticmethod
     def get_details(search_request_id, user_id, request=None):

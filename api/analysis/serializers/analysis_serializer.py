@@ -25,11 +25,6 @@ class AnalysisSerializer(serializers.Serializer):
         help_text="Imagem JPG ou PNG em formato Base64 Data URI"
     )
 
-    userId = serializers.IntegerField(
-        required=True,
-        help_text="ID do usuário que está fazendo a análise"
-    )
-
     def validate_image(self, value: str):
         if not value.startswith("data:image/"):
             raise serializers.ValidationError(
@@ -88,7 +83,7 @@ class AnalysisSerializer(serializers.Serializer):
 
         return value
 
-    def to_dto(self) -> AnalysisDto:
+    def to_dto(self,  user_id: int) -> AnalysisDto:
         image = self.validated_data["image"]
 
         header, base64_content = image.split(",", 1)
@@ -105,5 +100,5 @@ class AnalysisSerializer(serializers.Serializer):
             base64=base64_content,
             mime_type=mime_type,
             extension=extension,
-            user_id=self.validated_data["userId"]
+            user_id=user_id
         )

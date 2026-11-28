@@ -12,13 +12,12 @@ const useAnalysisStore = create((set) => ({
   pendingAnalyses: [],
 
   // Criar análise de imagem
-  createAnalysis: async (image, userId) => {
+  createAnalysis: async (image) => {
     set({ loading: true, error: null });
 
     try {
       const payload = {
         image,
-        userId,
       };
 
       const response = await api.post("analysis/", payload);

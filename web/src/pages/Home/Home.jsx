@@ -11,7 +11,6 @@ import iconSelecionar from "../../assets/images/icon-selecionar.png";
 
 import { toBase64 } from "../../utils/converter";
 import useAnalysisStore from "../../stores/analysisStore";
-import useAuthStore from "../../stores/authStore";
 
 export default function Home() {
   const [menuAberto, setMenuAberto] = useState(false);
@@ -23,7 +22,6 @@ export default function Home() {
 
   const { createAnalysis, searchRequestId } = useAnalysisStore();
 
-  const { user } = useAuthStore();
   const navigate = useNavigate();
 
   const extensoesPermitidas = [
@@ -150,12 +148,6 @@ export default function Home() {
   const confirmarEnvio = async (e) => {
     e.preventDefault();
 
-    if (!user?.id) {
-      setTipoErro("analise");
-      setErroEnvio("Sessão inválida. Faça login novamente.");
-      return;
-    }
-
     if (!imageBase64) {
       setTipoErro("arquivo");
       setErroEnvio("Por favor, selecione uma imagem válida.");
@@ -166,7 +158,7 @@ export default function Home() {
       setCarregando(true);
       setErroEnvio(null);
 
-      const result = await createAnalysis(imageBase64, user.id);
+      const result = await createAnalysis(imageBase64);
 
       const statusRetorno = String(
         result?.status || result?.classification || result?.message || ""
